@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spor Kontrol Paneli</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "surface-dark": "#1A2C20",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 dark:bg-black font-display flex justify-center min-h-screen">
+<!-- Mobile Screen Container -->
+<div class="w-full max-w-[430px] bg-background-light dark:bg-background-dark min-h-screen relative shadow-2xl overflow-hidden flex flex-col">
+<!-- Header -->
+<div class="px-5 pt-12 pb-4 flex items-center justify-between sticky top-0 z-30 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<div class="h-12 w-12 rounded-full bg-cover bg-center ring-2 ring-primary/30" data-alt="User profile photo of a smiling young man" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqVS0Z3waO73PLxiNQLtQ2yFnV7fMRyOM_3k02-cy4HRQ1vfDTDQFZOVCMuzgrDfw3bQVOR0CRNg_JR2mIUGX6ENK1vgS63JkHCU7_zdzW4euuQph2nrKyv1FKNUO3qtis_lBp4_EJZAUXmGkX6QjbxmJ4QmWs29_oyzxT5c4C3qb6lwJFKhUZzvYM7TY-kE3fIAHdsFJgreJP62FCl_aSf38KzJW0s3WlFB-OmzhdGeTI6X1bEMAiHbS6N4F7gK1nyuOoJ2QoFv8')"></div>
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400 font-medium">Hoş geldin,</span>
+<h2 class="text-gray-900 dark:text-white text-xl font-bold leading-none">Can Yılmaz</h2>
+</div>
+</div>
+<button class="relative w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-surface-dark shadow-sm border border-gray-100 dark:border-white/5 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2.5 right-3 h-2 w-2 rounded-full bg-primary ring-2 ring-white dark:ring-surface-dark"></span>
+</button>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto no-scrollbar pb-28 space-y-6">
+<!-- Search Bar -->
+<div class="px-5">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors z-10">
+<span class="material-symbols-outlined">search</span>
+</span>
+<input class="w-full h-14 bg-white dark:bg-surface-dark rounded-2xl pl-12 pr-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 focus:ring-primary/50 text-base shadow-sm transition-all" placeholder="Maç, oyuncu veya saha ara..." type="text"/>
+</div>
+</div>
+<!-- Widgets Row -->
+<div class="px-5 grid grid-cols-2 gap-4">
+<!-- Weather Widget -->
+<div class="bg-gradient-to-br from-surface-dark to-background-dark p-4 rounded-2xl border border-white/5 flex flex-col justify-between h-32 shadow-lg relative overflow-hidden group">
+<div class="absolute right-[-15px] top-[-15px] bg-primary/10 rounded-full h-24 w-24 blur-xl group-hover:bg-primary/20 transition-all"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-1 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                            İstanbul
+                        </div>
+</div>
+<div class="z-10 mt-2">
+<div class="flex items-center justify-between">
+<p class="text-white font-bold text-3xl">18°</p>
+<span class="material-symbols-outlined text-yellow-400 text-[32px]">partly_cloudy_day</span>
+</div>
+<p class="text-primary text-xs font-medium mt-1">Parçalı Bulutlu</p>
+</div>
+</div>
+<!-- News Widget -->
+<div class="bg-primary p-4 rounded-2xl border border-transparent flex flex-col justify-between h-32 shadow-lg relative overflow-hidden cursor-pointer group">
+<div class="absolute right-[-20px] bottom-[-20px] bg-white/30 rounded-full h-32 w-32 blur-2xl group-hover:scale-110 transition-transform"></div>
+<div class="relative z-10 flex justify-between items-start">
+<p class="text-[#053312] text-[10px] font-bold bg-white/20 px-2 py-1 rounded-md">SPOR GÜNDEMİ</p>
+<span class="material-symbols-outlined text-[#053312] text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<div class="relative z-10 mt-auto">
+<p class="text-[#053312] font-extrabold text-sm leading-snug">Derbi hazırlıkları başladı!</p>
+<p class="text-[#053312]/70 text-[10px] mt-1 font-medium">20 dk önce</p>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="px-5 flex gap-4">
+<button class="flex-1 h-14 bg-primary hover:bg-[#11d651] active:scale-95 transition-all rounded-2xl flex items-center justify-center gap-2 text-[#053312] font-bold text-sm shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[22px]">add_circle</span>
+                    Etkinlik Oluştur
+                </button>
+<button class="flex-1 h-14 bg-white dark:bg-surface-dark hover:bg-gray-50 dark:hover:bg-[#233529] active:scale-95 transition-all rounded-2xl border border-gray-200 dark:border-white/10 flex items-center justify-center gap-2 text-gray-900 dark:text-white font-bold text-sm shadow-sm">
+<span class="material-symbols-outlined text-[22px]">group_add</span>
+                    Takıma Katıl
+                </button>
+</div>
+<!-- Upcoming Events Carousel -->
+<div class="w-full">
+<div class="px-5 flex items-center justify-between mb-4">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold tracking-tight">Yaklaşan Etkinlikler</h3>
+<button class="text-primary text-xs font-bold uppercase tracking-wide hover:underline">Tümü</button>
+</div>
+<!-- Carousel Container -->
+<div class="flex overflow-x-auto px-5 gap-4 pb-4 no-scrollbar snap-x">
+<!-- Card 1 -->
+<div class="min-w-[300px] snap-center bg-white dark:bg-surface-dark rounded-2xl p-3 shadow-md border border-gray-100 dark:border-white/5 flex gap-3 group hover:border-primary/50 transition-colors cursor-pointer">
+<div class="w-24 h-24 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" data-alt="Close up of a soccer ball on green turf at night" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_zzH46DeEDcVcF16oHDHtvHDqJVCtPHKfDweArhH1vSSYBY3UCYOhEOGa0BH9BqdxZzIe2--_5v4wk2f3uh6d39wKp5wElUUDQBV4b61Lg0r6S18Ye-9aNE9Em__Qwbg6I2n2p2kN9MOeAWMBcKtnIKjs_Tc_QDEQiN_m_gT-UzWs5A2Bok0172b3zlh3A_ByXyDkT7nKzKoIF9DIukawCvnu1bUWkZj_tL61SSl803qz9lngsKaDa8rrQUus44Cy1edYORu2qyA')">
+<div class="absolute inset-0 bg-black/20"></div>
+</div>
+<div class="flex flex-col justify-between py-0.5 flex-1">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded text-center">BUGÜN</span>
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+</div>
+<h4 class="text-gray-900 dark:text-white font-bold text-base leading-tight">Halı Saha Maçı</h4>
+</div>
+<div class="space-y-1">
+<p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span> 20:00 - 21:00
+                                </p>
+<p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[14px] text-primary">location_on</span> Levent Tesisleri
+                                </p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[300px] snap-center bg-white dark:bg-surface-dark rounded-2xl p-3 shadow-md border border-gray-100 dark:border-white/5 flex gap-3 group hover:border-primary/50 transition-colors cursor-pointer">
+<div class="w-24 h-24 rounded-xl bg-cover bg-center shrink-0 relative overflow-hidden" data-alt="Basketball hoop and court outdoors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBokx7x-XoNET7LQwLDAuAgs34ZXcd1V4c8iwgC2P_PJmQgtJbV3ZR5FtDY9PnHDNgbK-ZacWNhhYTZp1mR12acAgNRCjJM6tU69PYgfPq3NtiS40mzXzV_6_lTkjCua2MUwu2YSmS9SIOcHCDWGw5xomcHBttKU47KK5NO-p9GBhr6UaH_h8NTj54JqnzjgEXtTgYyEVbbR0ghleNWMF6XUbG6Qe9Du2IkZ-cBtezBW3adgs_qh0VF9v9Vdew6NsMTqC9tQJeRmWg')">
+<div class="absolute inset-0 bg-black/20"></div>
+</div>
+<div class="flex flex-col justify-between py-0.5 flex-1">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded text-center">YARIN</span>
+</div>
+<h4 class="text-gray-900 dark:text-white font-bold text-base leading-tight">Basketbol 3v3</h4>
+</div>
+<div class="space-y-1">
+<p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span> 18:00 - 19:30
+                                </p>
+<p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[14px] text-primary">location_on</span> Sahil Parkı
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Teams Grid -->
+<div class="px-5">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold tracking-tight">Oyuncu Arayanlar</h3>
+<button class="text-primary text-xs font-bold uppercase tracking-wide hover:underline">Tümü</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Team Card 1 -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
+<!-- Decorative gradient background -->
+<div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10 w-16 h-16 rounded-full bg-white dark:bg-[#121f16] p-1 mb-3 shadow-md ring-1 ring-gray-100 dark:ring-white/5">
+<img alt="Lion mascot logo" class="w-full h-full rounded-full object-cover" data-alt="Team logo with a lion illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh1tvcutFkG-TO9LyIn9fZJU1__dQjduuQlMQH3GyCyM4TkNa-QJtTC1kaps9J8fAdNpnTtjr18_WuORvhWePSxAkVGeGHrEQ6XGoU80e6-StMAuDvlc3dNzilim3i_hD6rTYykkMsUS6cbnfYmVo5SOFRFVanXHx2xP6WFt0Bt9NWCUXVcileBw_UZ98yjAAlZwmwxH35R9vs7IjqVRNt-rfV44l8nVh5T4tOfaNipf5IjMz6bLqEb1BkD8hd5T_KkbO5FyxLEyE"/>
+</div>
+<h4 class="text-gray-900 dark:text-white font-bold text-sm mb-0.5">Kartallar FC</h4>
+<div class="flex items-center gap-1 mb-3">
+<span class="material-symbols-outlined text-[12px] text-gray-400">near_me</span>
+<p class="text-gray-500 dark:text-gray-400 text-[11px]">3km uzakta</p>
+</div>
+<div class="mt-auto w-full">
+<span class="block w-full text-center text-[11px] font-bold text-[#053312] bg-primary py-2 rounded-lg">
+                                Kaleci Aranıyor
+                            </span>
+</div>
+</div>
+<!-- Team Card 2 -->
+<div class="bg-white dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-white/5 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10 w-16 h-16 rounded-full bg-white dark:bg-[#121f16] p-1 mb-3 shadow-md ring-1 ring-gray-100 dark:ring-white/5">
+<img alt="Soccer ball logo" class="w-full h-full rounded-full object-cover" data-alt="Minimalist team logo with a soccer ball" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9eVRs_eS7wd0C128GqVl8mj-pUSxpkgbMRzPQhoeeQQ-nbhXUvUWk_BNF5Gsh_9GP5pNyh6ljg1N_S3IGmFrzlBjD55OZdcO4jgudRJnm8kkbRztTxYsugDGWJQowFDnxYSgOU1-ke0okclqWSpIPyBHQ2ex42YdxljwOtsuAcxJ32EpOKgXcR-Tqv9yxVrFAmw_mPJiYRqvvS999d_F7pnnoZBeTs5YyRVQ7osbO7JqPMaltXUFhPsb5h1f87WROwLssrwGk7f8"/>
+</div>
+<h4 class="text-gray-900 dark:text-white font-bold text-sm mb-0.5">Yıldız Spor</h4>
+<div class="flex items-center gap-1 mb-3">
+<span class="material-symbols-outlined text-[12px] text-gray-400">near_me</span>
+<p class="text-gray-500 dark:text-gray-400 text-[11px]">1.2km uzakta</p>
+</div>
+<div class="mt-auto w-full">
+<span class="block w-full text-center text-[11px] font-bold text-primary border border-primary/50 py-2 rounded-lg bg-primary/5">
+                                2 Forvet Lazım
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Feed -->
+<div class="px-5">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold mb-4 tracking-tight">Son Aktiviteler</h3>
+<div class="space-y-4">
+<!-- Activity Item 1 -->
+<div class="flex items-start gap-3 group">
+<div class="w-10 h-10 rounded-full bg-cover bg-center ring-2 ring-transparent group-hover:ring-primary/50 transition-all" data-alt="Portrait of user Mehmet" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdnjMSO8H0_D33Bt55RMsmQT_PtSqogAAEJFOdemElWZd92Lo0sL7LITwM8WO8KBXkT08oUiGg6KnudhflBxeW7AqvlzY4dJuk85cXtogIxXZszRa9r66lOOzQrdh56LzudWXXg71dZTeQEYsOWBKKbATJ9ejj2KxQW1EzRnw0VkE0FS_S3Jw5xnU5oqBMDhlIE6l2H3m_MagOiqFBAsVtERVKGhPUCVcjQn0YrXFmmTE8uqqIb7ZHE3W3YQYGEx9X9d_SIbjMBlE')"></div>
+<div class="flex-1 border-b border-gray-100 dark:border-white/5 pb-3">
+<p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+<span class="font-bold text-gray-900 dark:text-white">Mehmet</span> seni <span class="text-primary font-bold">Haftasonu Maçı</span> takımına davet etti.
+                            </p>
+<p class="text-[11px] text-gray-400 mt-1 font-medium">2 saat önce</p>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="flex-1 border-b border-gray-100 dark:border-white/5 pb-3">
+<p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                Salı günkü <span class="font-bold text-gray-900 dark:text-white">Basketbol</span> maçı kadrosu tamamlandı.
+                            </p>
+<p class="text-[11px] text-gray-400 mt-1 font-medium">5 saat önce</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for bottom nav -->
+<div class="h-6"></div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="absolute bottom-0 w-full bg-white/90 dark:bg-background-dark/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/5 h-[84px] flex items-start justify-around pt-3 z-40">
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-primary text-[26px] transition-transform group-active:scale-90" data-weight="fill">dashboard</span>
+<span class="text-[10px] font-bold text-primary tracking-wide">Panel</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-[26px] transition-colors group-hover:text-gray-600 dark:group-hover:text-gray-300">search</span>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 tracking-wide">Keşfet</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<div class="relative">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-[26px] transition-colors group-hover:text-gray-600 dark:group-hover:text-gray-300">chat_bubble</span>
+<span class="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</div>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 tracking-wide">Mesajlar</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-[26px] transition-colors group-hover:text-gray-600 dark:group-hover:text-gray-300">person</span>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 tracking-wide">Profil</span>
+</button>
+</div>
+</div>
+</body></html>

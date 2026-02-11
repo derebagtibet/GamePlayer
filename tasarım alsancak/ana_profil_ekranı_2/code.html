@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profilim</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#17d961", "background-light": "#f6f8f7", "background-dark": "#112117", "surface-light": "#ffffff", "surface-dark": "#1a2c22"}, fontFamily: {display: "Sora"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}}}};</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0e1b13] dark:text-white min-h-screen relative overflow-x-hidden selection:bg-primary/30">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-gray-100 dark:border-white/5">
+<div class="w-10">
+<!-- Empty for balance or back button if needed -->
+</div>
+<h1 class="text-lg font-bold tracking-tight">Profilim</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-[#4e976a] dark:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</header>
+<main class="pb-28"> <!-- Padding bottom for navigation bar -->
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center pt-6 px-6">
+<div class="relative group">
+<div class="w-28 h-28 rounded-full bg-gray-200 dark:bg-white/10 p-1 ring-2 ring-primary ring-offset-2 ring-offset-background-light dark:ring-offset-background-dark">
+<img alt="Smiling male athlete portrait outdoors" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIHxY0cO7lFO0EQLaostTsV7RDr5pdWCuixvBKOuRQwuw50cvX1PVzEwgKBt9uZXO1buHMxql8jsOGP7FU9hHNCIU49wDjZr1iepWXlrOMYEQvmJJ6sTAuUQ1tGI4Zz9IJ4e82lktW92DieogT2hKpqG2_Hp2fVtdAF95fJ6ySDPJkQPFY3u2hNiDIL_MArTnbWLoirQYtZo4nDo9z5I_U2MyC0f7F02fOyYzGBpgKGnY96jnmloxK4pDhaSYphsFs04vKiRMxrrg"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-1.5 border-2 border-background-light dark:border-background-dark shadow-sm">
+<span class="material-symbols-outlined text-[16px] leading-none block">edit</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<h2 class="text-2xl font-bold leading-tight">Ahmet Yılmaz</h2>
+<div class="flex items-center justify-center gap-2 mt-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+<span class="px-2 py-0.5 rounded bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300">Orta Saha</span>
+<span class="w-1 h-1 rounded-full bg-gray-300"></span>
+<span>Yarı Profesyonel</span>
+</div>
+</div>
+</section>
+<!-- Level & Progress Bar -->
+<section class="px-6 mt-6 w-full max-w-md mx-auto">
+<div class="flex justify-between items-end mb-2 px-1">
+<span class="text-sm font-bold text-primary">Seviye 12</span>
+<span class="text-xs text-gray-500 dark:text-gray-400 font-medium">750/1000 XP</span>
+</div>
+<div class="h-3 w-full bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 75%;"></div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="px-6 mt-6 w-full max-w-md mx-auto">
+<div class="flex gap-3">
+<button class="flex-1 h-11 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+<span>Profili Düzenle</span>
+</button>
+<button class="h-11 w-11 flex items-center justify-center bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</section>
+<!-- Stats Grid -->
+<section class="mt-8 px-4">
+<div class="flex items-center justify-between px-2 mb-4">
+<h3 class="text-lg font-bold">Genel İstatistikler</h3>
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">2023-24 Sezonu</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Matches -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">sports_soccer</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Maç</span>
+</div>
+<p class="text-3xl font-bold">42</p>
+</div>
+<!-- Goals -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">scoreboard</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Gol</span>
+</div>
+<p class="text-3xl font-bold">15</p>
+</div>
+<!-- Assists -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">handshake</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Asist</span>
+</div>
+<p class="text-3xl font-bold">8</p>
+</div>
+<!-- Fair Play -->
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex flex-col gap-1 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<div class="flex items-center gap-2 mb-1 text-primary">
+<span class="material-symbols-outlined text-[20px] fill-current">verified</span>
+<span class="text-xs font-bold uppercase tracking-wider">Fair Play</span>
+</div>
+<div class="flex items-baseline gap-1">
+<p class="text-3xl font-bold">4.9</p>
+<span class="text-sm text-yellow-500 font-bold">★</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activities Feed -->
+<section class="mt-8 px-4">
+<div class="flex justify-between items-center mb-4 px-2">
+<h3 class="text-lg font-bold">Son Etkinlikler</h3>
+<a class="text-sm font-semibold text-primary hover:text-primary/80" href="#">Tümünü Gör</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Event Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-3 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 relative bg-gray-100">
+<img alt="Green soccer field at night" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXgvuYbcQIYpTjD3FXQXEzkO3cUI5LIDxt_uMDuFfY7nlYlRjzX6-41FfuM_RSvp6dZFRPOmDTeWYY0WbA5QeMOcMqNHUpkySLqUZZzY1ARC9XQUPXuenXmmAYT83t1lq9x9D7uim3ywiD5OMg5l0Ho-V4l8tk1gCLl2JwDKyCoDplBpBLyf09VRhtoYXDR7rVzciftfAJtZJHmAyv49qqkoQ_AEjfxJ-M3Te_d6KF9qwdLbsx1_k2ydGsHh6-NMT5J5WZASLStVQ"/>
+<div class="absolute inset-0 bg-black/20"></div>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-sm truncate pr-2">Halı Saha Maçı 7v7</h4>
+<div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="truncate">Caddebostan Sahil, İstanbul</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded">Katıldı</span>
+<span class="text-[10px] text-gray-400">12 Eki, 20:00</span>
+</div>
+</div>
+<div class="pr-2 text-primary">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-3 rounded-2xl border border-gray-100 dark:border-white/5 shadow-sm flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 relative bg-gray-100">
+<img alt="Soccer ball on grass close up" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8yQ5Ep3owZTWA3eM3mC_CbEhpS213J1i9u-A7yGOtcXHpZbfAWyiIX2bUUJY_IPM7hcqd7oaBpW6rIRnRPtyQ4ZtFfsFgRDzKLiVWJs2W7dK-bKW4cS_F8WWYEw-Uz09LJMlWjzWEk1cI5DSep2rkU0H_xsFofxuqr1rNq37QplMfpus-Sey1X-ju8S4RuSafdQhYIM4BsLZt92MiYXjoKPQb47gv_CetzbKey6a4yosWbmUxw6yPCJ5EbPMZCLhHD0i7SeGLEGs"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-sm truncate pr-2">Pazar Sabahı Antrenmanı</h4>
+<div class="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="truncate">Beşiktaş Tesisleri</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<span class="text-[10px] font-bold px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded">Oluşturdu</span>
+<span class="text-[10px] text-gray-400">09 Eki, 10:00</span>
+</div>
+</div>
+<div class="pr-2 text-gray-400">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-light dark:bg-[#15221b] border-t border-gray-100 dark:border-white/5 px-6 pb-6 pt-3 z-50">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">home</span>
+<span class="text-[10px] font-medium">Ana Sayfa</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">search</span>
+<span class="text-[10px] font-medium">Keşfet</span>
+</a>
+<!-- Center Action Button -->
+<a class="flex items-center justify-center w-12 h-12 bg-primary text-white rounded-full shadow-lg shadow-primary/40 -mt-6 ring-4 ring-background-light dark:ring-background-dark" href="#">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">chat</span>
+<span class="text-[10px] font-medium">Mesajlar</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px] fill">person</span>
+<span class="text-[10px] font-medium">Profil</span>
+</a>
+</div>
+</nav>
+</body></html>

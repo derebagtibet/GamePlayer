@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profilim</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#17d961",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#112117",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2c22"
+                    },
+                    fontFamily: {
+                        display: "Sora"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "1rem",
+                        xl: "1.5rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0e1b13] dark:text-white min-h-screen relative overflow-x-hidden selection:bg-primary/30">
+<header class="fixed top-0 z-50 w-full px-4 py-4 flex items-center justify-between pointer-events-none">
+<button class="pointer-events-auto w-10 h-10 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white border border-white/10 hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex gap-2 pointer-events-auto">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white border border-white/10 hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white border border-white/10 hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<main class="pb-32">
+<section class="relative w-full h-[65vh] min-h-[500px]">
+<img alt="Athlete Hero" class="absolute inset-0 w-full h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIHxY0cO7lFO0EQLaostTsV7RDr5pdWCuixvBKOuRQwuw50cvX1PVzEwgKBt9uZXO1buHMxql8jsOGP7FU9hHNCIU49wDjZr1iepWXlrOMYEQvmJJ6sTAuUQ1tGI4Zz9IJ4e82lktW92DieogT2hKpqG2_Hp2fVtdAF95fJ6ySDPJkQPFY3u2hNiDIL_MArTnbWLoirQYtZo4nDo9z5I_U2MyC0f7F02fOyYzGBpgKGnY96jnmloxK4pDhaSYphsFs04vKiRMxrrg"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background-light dark:to-background-dark"></div>
+<div class="absolute bottom-0 left-0 w-full px-6 pb-8 z-10">
+<div class="flex flex-col items-start animate-fade-in-up">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/90 text-white text-xs font-bold uppercase tracking-wider mb-3 shadow-lg shadow-primary/20 backdrop-blur-sm border border-white/20">
+<span class="material-symbols-outlined text-[16px] fill-current">verified</span>
+                        Yarı Profesyonel
+                    </span>
+<h1 class="text-6xl font-black text-white leading-[0.9] tracking-tighter drop-shadow-2xl mb-2">
+                        AHMET<br/>YILMAZ
+                    </h1>
+<div class="flex items-center gap-4 text-white/90 font-medium text-lg mt-2">
+<span class="drop-shadow-md">Orta Saha</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_theme(colors.primary)]"></span>
+<span class="drop-shadow-md">Seviye 12</span>
+</div>
+</div>
+</div>
+<button class="absolute bottom-8 right-6 z-20 w-14 h-14 flex items-center justify-center bg-white text-primary rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[28px]">edit</span>
+</button>
+</section>
+<section class="px-4 relative z-20 -mt-6">
+<div class="bg-surface-light dark:bg-surface-dark rounded-[2rem] p-6 shadow-2xl border border-white/50 dark:border-white/5 overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+<div class="flex justify-between items-end mb-6 border-b border-gray-100 dark:border-white/5 pb-4">
+<div>
+<h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Genel İstatistikler</h2>
+<div class="text-xs text-primary font-medium mt-1">2023-24 Sezonu</div>
+</div>
+<span class="material-symbols-outlined text-gray-300 dark:text-gray-600">bar_chart</span>
+</div>
+<div class="grid grid-cols-2 gap-y-8 gap-x-4">
+<div class="relative group">
+<div class="flex items-baseline gap-1">
+<span class="text-6xl font-black text-gray-900 dark:text-white tracking-tighter">42</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-xl">sports_soccer</span>
+<span class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Maç</span>
+</div>
+</div>
+<div class="relative group">
+<div class="flex items-baseline gap-1">
+<span class="text-6xl font-black text-primary tracking-tighter">15</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-gray-400 text-xl">sports_score</span>
+<span class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Gol</span>
+</div>
+</div>
+<div class="relative group">
+<div class="flex items-baseline gap-1">
+<span class="text-6xl font-black text-gray-900 dark:text-white tracking-tighter">8</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-xl">handshake</span>
+<span class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Asist</span>
+</div>
+</div>
+<div class="relative group">
+<div class="flex items-baseline gap-1">
+<span class="text-6xl font-black text-gray-900 dark:text-white tracking-tighter">4.9</span>
+<span class="material-symbols-outlined text-yellow-400 text-2xl fill-current">star</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Fair Play</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-10 pl-4">
+<div class="flex justify-between items-center pr-6 mb-5">
+<h3 class="text-2xl font-extrabold flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                    Son Etkinlikler
+                </h3>
+<a class="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-primary" href="#">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-8 pr-4 snap-x snap-mandatory hide-scrollbar">
+<div class="snap-center shrink-0 w-[240px] h-[360px] relative rounded-3xl overflow-hidden shadow-lg group">
+<img alt="Victory" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXgvuYbcQIYpTjD3FXQXEzkO3cUI5LIDxt_uMDuFfY7nlYlRjzX6-41FfuM_RSvp6dZFRPOmDTeWYY0WbA5QeMOcMqNHUpkySLqUZZzY1ARC9XQUPXuenXmmAYT83t1lq9x9D7uim3ywiD5OMg5l0Ho-V4l8tk1gCLl2JwDKyCoDplBpBLyf09VRhtoYXDR7rVzciftfAJtZJHmAyv49qqkoQ_AEjfxJ-M3Te_d6KF9qwdLbsx1_k2ydGsHh6-NMT5J5WZASLStVQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-primary/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold border border-white/20">
+                        12 Ekim
+                    </div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">emoji_events</span>
+<h4 class="text-3xl font-black text-white leading-none uppercase italic">MAÇ<br/>ZAFERİ</h4>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] h-[360px] relative rounded-3xl overflow-hidden shadow-lg group">
+<img alt="Training" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8yQ5Ep3owZTWA3eM3mC_CbEhpS213J1i9u-A7yGOtcXHpZbfAWyiIX2bUUJY_IPM7hcqd7oaBpW6rIRnRPtyQ4ZtFfsFgRDzKLiVWJs2W7dK-bKW4cS_F8WWYEw-Uz09LJMlWjzWEk1cI5DSep2rkU0H_xsFofxuqr1rNq37QplMfpus-Sey1X-ju8S4RuSafdQhYIM4BsLZt92MiYXjoKPQb47gv_CetzbKey6a4yosWbmUxw6yPCJ5EbPMZCLhHD0i7SeGLEGs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold border border-white/20">
+                        09 Ekim
+                    </div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="material-symbols-outlined text-4xl text-white mb-2">fitness_center</span>
+<h4 class="text-3xl font-black text-white leading-none uppercase italic">KRİTİK<br/>ASİST</h4>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] h-[360px] relative rounded-3xl overflow-hidden shadow-lg group">
+<img alt="Goal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB0kFpK61QhuD1KhAEC-gfbavPwTqN6co8ucNlGfN0JwCLXxiRPRlHsAgiMf_aYE1jWS-3hnWcStSwqog6v3rJun77b7GQ88ea0K-C-GMhjZmHv8N5UZCZ2Ijb79hOtf38vQszGl-tB6q5UTpv_lUWVopJAYriWLxELzPqG7qYF3p3r6kHiGHmOpvcExyP-oKYu-Ql1aGVnY0gv0xqHYMePWhT2y6uwZqhB59EOMGSqr8tfUnhUpn2L2JeqhlqRDU6B7lTQF7FXRc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold border border-white/20">
+                        05 Ekim
+                    </div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">sports_soccer</span>
+<h4 class="text-3xl font-black text-white leading-none uppercase italic">MAÇIN<br/>GOLÜ</h4>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] h-[360px] relative rounded-3xl overflow-hidden shadow-lg group">
+<img alt="Fast Attack" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5ssObQnxnjdH8ifBRdLXOYpUdJ3mZJw_J5tXRUPtkTuoBHEeErEH8EqmAvBFbkMGc0OpoH8YcjjiiobeJ5yW4_T0NNGddI6GpHgJ07-l2EVTUdWFdPaDX9VLkViTDosknDYeWnstarQhjFt0_b0S32cuXg28aDXJrR5e0wih_4TerepID_dXAOTzmSzVANcc8ZUqJoyrcYz2uacLVR5EQKtrm5jjSz2uuAn4NFI-0NvSjBiVnNtjijlgu6OcazAJrsdr6D6YgWrI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold border border-white/20">
+                        01 Ekim
+                    </div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="material-symbols-outlined text-4xl text-white mb-2">speed</span>
+<h4 class="text-3xl font-black text-white leading-none uppercase italic">HIZLI<br/>HÜCUM</h4>
+</div>
+</div>
+</div>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-light/95 dark:bg-[#15221b]/95 backdrop-blur-lg border-t border-gray-100 dark:border-white/5 px-6 pb-6 pt-3 z-50">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">home</span>
+<span class="text-[10px] font-medium">Ana Sayfa</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">search</span>
+<span class="text-[10px] font-medium">Keşfet</span>
+</a>
+<a class="flex items-center justify-center w-12 h-12 bg-primary text-white rounded-full shadow-lg shadow-primary/40 -mt-6 ring-4 ring-background-light dark:ring-background-dark transform hover:-translate-y-1 transition-transform" href="#">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px]">chat</span>
+<span class="text-[10px] font-medium">Mesajlar</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[26px] fill">person</span>
+<span class="text-[10px] font-medium">Profil</span>
+</a>
+</div>
+</nav>
+
+</body></html>

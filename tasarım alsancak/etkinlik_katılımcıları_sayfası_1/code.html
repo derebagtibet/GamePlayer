@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Participants</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#13ec5b", "background-light": "#f6f8f6", "background-dark": "#102216"}, fontFamily: {display: "Sora"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        /* Custom scrollbar hiding for horizontal scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111813] dark:text-white transition-colors duration-200">
+<div class="relative mx-auto flex h-full min-h-screen w-full max-w-md flex-col overflow-hidden bg-background-light dark:bg-background-dark shadow-xl">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-white/90 dark:bg-[#102216]/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors">
+<div class="flex items-center justify-between p-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[#111813] dark:text-white">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="text-base font-bold leading-tight text-[#111813] dark:text-white">Halı Saha Maçı: Kadıköy</h1>
+<span class="text-xs font-medium text-gray-500 dark:text-gray-400">14 Ekim, 20:00 - 21:00</span>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[#111813] dark:text-white">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Search Bar -->
+<div class="px-4 py-3">
+<div class="relative flex h-12 w-full items-center overflow-hidden rounded-xl bg-white dark:bg-[#1a2e22] shadow-sm ring-1 ring-black/5 dark:ring-white/10 focus-within:ring-2 focus-within:ring-primary transition-all">
+<div class="flex h-full w-12 items-center justify-center text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="h-full w-full border-none bg-transparent p-0 pr-4 text-base font-medium text-[#111813] dark:text-white placeholder:text-gray-400 focus:ring-0" placeholder="Oyuncu ara..." type="text"/>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 overflow-x-auto px-4 pb-4 hide-scrollbar">
+<button class="flex h-9 shrink-0 items-center gap-2 rounded-full bg-[#111813] px-4 transition-colors">
+<span class="text-sm font-semibold text-white">Tümü</span>
+</button>
+<button class="flex h-9 shrink-0 items-center gap-2 rounded-full bg-white dark:bg-[#1a2e22] px-4 ring-1 ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-[#233b2b] transition-colors">
+<span class="text-sm font-medium text-[#111813] dark:text-gray-200">Kaleci</span>
+</button>
+<button class="flex h-9 shrink-0 items-center gap-2 rounded-full bg-white dark:bg-[#1a2e22] px-4 ring-1 ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-[#233b2b] transition-colors">
+<span class="text-sm font-medium text-[#111813] dark:text-gray-200">Defans</span>
+</button>
+<button class="flex h-9 shrink-0 items-center gap-2 rounded-full bg-white dark:bg-[#1a2e22] px-4 ring-1 ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-[#233b2b] transition-colors">
+<span class="text-sm font-medium text-[#111813] dark:text-gray-200">Orta Saha</span>
+</button>
+<button class="flex h-9 shrink-0 items-center gap-2 rounded-full bg-white dark:bg-[#1a2e22] px-4 ring-1 ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-[#233b2b] transition-colors">
+<span class="text-sm font-medium text-[#111813] dark:text-gray-200">Forvet</span>
+</button>
+</div>
+<!-- Section Title & Count -->
+<div class="flex items-center justify-between px-4 py-2">
+<h2 class="text-lg font-bold tracking-tight text-[#111813] dark:text-white">Kadro</h2>
+<div class="flex items-center gap-1 rounded-md bg-primary/20 px-2 py-1">
+<span class="text-xs font-bold text-green-800 dark:text-green-300">8/14</span>
+</div>
+</div>
+<!-- Participants List -->
+<div class="flex flex-col gap-3 px-4 pb-4">
+<!-- Organizer Card (Highlight) -->
+<div class="group relative flex items-center gap-4 rounded-xl bg-white dark:bg-[#1a2e22] p-3 shadow-sm ring-1 ring-primary/50 transition-all active:scale-[0.98]">
+<div class="relative h-14 w-14 shrink-0">
+<div class="h-full w-full rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of a smiling man with a beard" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvuNd47DhgMp-4sGPpQ1vU-j7k1FvHKLAMoXgHa27KugYdoc1x_kyKerDU1h6LCD3zeUZuHhvO1ssHar4SjtL6I1MlOPuAu52YxgEkvndNfMmNDWCS7ckHcx65bbpwVNvpLHNGq1yhUc40I9NM4CbZTycwHBwiXpq8O7SKmTBexvVKbXsFdVrZUqfs89GoNLgeSZ6LGBFCyWkXaSQJEVBBTcaoXHR4DPhqcwa7sdbFU9xTdAMgTg89hRf6rodPTpDGIdVbJYe8YKM");'></div>
+<div class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-2 ring-white dark:ring-[#1a2e22]">
+<span class="material-symbols-outlined text-[14px] text-black font-bold">star</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<div class="flex items-center gap-2">
+<p class="text-base font-bold text-[#111813] dark:text-white">Ahmet Yılmaz</p>
+<span class="rounded bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">Organizatör</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[16px]">sports_soccer</span>
+<span>Orta Saha</span>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="font-bold text-[#111813] dark:text-white">⭐ 4.9</p>
+<p class="text-xs text-gray-400">Seviye 8</p>
+</div>
+</div>
+<!-- Player 1 -->
+<div class="group relative flex items-center gap-4 rounded-xl bg-white dark:bg-[#1a2e22] p-3 shadow-sm ring-1 ring-gray-100 dark:ring-gray-800 transition-all active:scale-[0.98]">
+<div class="h-14 w-14 shrink-0 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of a man with glasses smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYcyQUHkz7bbF3xEzAvym-AG4D0l_pwTzDPRLB40gd7WECnrJXuHNMeu8XI7uSDJa1QnVwKPzYyCLe16kLkhreBGbne7TCIdGKdtLCnORs-NAqTzEPsochEi63x18eUdekz-MpWh6_55OamaUXsm9lGnBumMyX7qzyMo89tXHsH6FoWzuvDbx_GHv9h08QQnCW_-PmitAboKPgB8cbIQJ6gVmVtGg-kzaJDijlWL4pddbiU9FjWcybbbi8cSAKk0xWeAEff7RjBCY");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-base font-bold text-[#111813] dark:text-white">Mehmet Demir</p>
+<div class="flex items-center gap-2 text-sm">
+<span class="rounded bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:text-blue-300">Kaleci</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="font-bold text-[#111813] dark:text-white">⭐ 4.5</p>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-700 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+</div>
+<!-- Player 2 -->
+<div class="group relative flex items-center gap-4 rounded-xl bg-white dark:bg-[#1a2e22] p-3 shadow-sm ring-1 ring-gray-100 dark:ring-gray-800 transition-all active:scale-[0.98]">
+<div class="h-14 w-14 shrink-0 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of a smiling woman with long hair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2aLCVlfFt0lrHlL69OlRMrycdNkCyjQ5h2x6A6f3Bo1E_j4o8x9Fr4BbGN4VW-Lg66awzOmug1h4V23KJh_598hg4PBeEYGtq0a5xV9ajeRPXLq9-ynOmmNOMd1lzAz25jtgWBKMIRI-QpGkwqKFLjAuGvVi9kYL2c1Z7DovnpVkCkRs-jYe-Co9b6R-A9uEvIqWZmiA6YQe8kKGTFHPrqp85OuLi3nmptPADiJD7vc6Z5hwaVOTLIWROrpEXD8I14nH45EmUJa8");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-base font-bold text-[#111813] dark:text-white">Elif Kaya</p>
+<div class="flex items-center gap-2 text-sm">
+<span class="rounded bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-xs font-semibold text-red-700 dark:text-red-300">Forvet</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="font-bold text-[#111813] dark:text-white">⭐ 5.0</p>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-700 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+</div>
+<!-- Player 3 -->
+<div class="group relative flex items-center gap-4 rounded-xl bg-white dark:bg-[#1a2e22] p-3 shadow-sm ring-1 ring-gray-100 dark:ring-gray-800 transition-all active:scale-[0.98]">
+<div class="h-14 w-14 shrink-0 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of a serious looking man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAKy0KNTnfkqeDtkVkg_nExvcZft1xvIGUSGTwIVSI54tCSr40w62wE0d2lvd8DccPs1RoFB76xajERA1jS4CCQby9DZeckjSj5h0w-4_ocXfMl4n3JWhHzL7i32GIbvFTBPBsONeFp7VzZi3qkkvHOUZlj5buIOW1YdKIOTVvGB6GHSHfbgOzU37Ac6js3cuEnuwkfjvQRO6WFujY6dSuQCAOj17nygi7EBXW60C1xf2BAL5lbxgqAKKtpDiIFi-nEYqUALaIz5uo");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-base font-bold text-[#111813] dark:text-white">Caner Erkin</p>
+<div class="flex items-center gap-2 text-sm">
+<span class="rounded bg-green-100 dark:bg-green-900/30 px-2 py-0.5 text-xs font-semibold text-green-800 dark:text-green-300">Defans</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="font-bold text-[#111813] dark:text-white">⭐ 4.2</p>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-700 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+</div>
+<!-- Player 4 -->
+<div class="group relative flex items-center gap-4 rounded-xl bg-white dark:bg-[#1a2e22] p-3 shadow-sm ring-1 ring-gray-100 dark:ring-gray-800 transition-all active:scale-[0.98]">
+<div class="h-14 w-14 shrink-0 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of a man with stubble smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDok68q5MiJdaTuVnWzp627biUPyqJaeRKyndzMxcxD-DzzZLMRhDByr2XYI3urWF5OPiao29lNmqIA3R6qg3sKxY-FEB6_K7_lYNcOvHqGCB_3eMSj0ee6ijHXBm0ANye_3E2VZ5PDt441eac6YNm0LbLl3iyNDpdDsT6PylUYnYNF2M7MrJ44wX7Hb8Su16gkaNEQEwOP4isH4NpAOouxTeQv7NcvwiuWoTk59tirpUtaITHbhrTt4r-l1NPVbTRAYX7jDdGAJWU");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-base font-bold text-[#111813] dark:text-white">Burak Yılmaz</p>
+<div class="flex items-center gap-2 text-sm">
+<span class="rounded bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-xs font-semibold text-red-700 dark:text-red-300">Forvet</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="font-bold text-[#111813] dark:text-white">⭐ 4.7</p>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-700 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</button>
+</div>
+</div>
+<!-- Invite Placeholder -->
+<div class="mt-2 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#1a2e22]/50 p-6">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+<span class="material-symbols-outlined text-primary text-[24px]">group_add</span>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-[#111813] dark:text-white">Kadroyu Tamamla</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Maçın başlamasına 6 oyuncu kaldı.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Bottom CTA -->
+<div class="sticky bottom-0 w-full border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-[#102216] p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3.5 text-base font-bold text-[#102216] shadow-md shadow-primary/20 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined">person_add</span>
+                Arkadaş Davet Et
+            </button>
+</div>
+</div>
+</body></html>

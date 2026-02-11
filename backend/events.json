@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "type": "soccer",
+    "category": "Futbol",
+    "title": "Halı Saha Maçı",
+    "subtitle": "Orta Seviye • Rekabetçi",
+    "time": "Bu Akşam, 20:00 - 21:00",
+    "location": "Göztepe Parkı, Kadıköy",
+    "participants": "13/14",
+    "progress": "92%",
+    "price": "₺65",
+    "badge": "Son 1 Kişi!",
+    "badgeType": "danger",
+    "icon": "sports-soccer",
+    "iconColor": "#15803d",
+    "iconBg": "#f0fdf4",
+    "iconBgDark": "rgba(21, 128, 61, 0.2)",
+    "iconColorDark": "#4ade80"
+  },
+  {
+    "id": 2,
+    "type": "basketball",
+    "category": "Basketbol",
+    "title": "3'e 3 Basketbol",
+    "subtitle": "Başlangıç • Eğlence",
+    "time": "Yarın, 18:00",
+    "location": "Caddebostan Sahil",
+    "participants": "4/6",
+    "progress": "66%",
+    "price": "Free",
+    "priceLabel": "Ücretsiz",
+    "icon": "sports-basketball",
+    "iconColor": "#c2410c",
+    "iconBg": "#fff7ed",
+    "iconBgDark": "rgba(194, 65, 12, 0.2)",
+    "iconColorDark": "#fb923c"
+  },
+  {
+    "id": 3,
+    "type": "tennis",
+    "category": "Tenis",
+    "title": "Partner Aranıyor",
+    "time": "24 Ekim, 09:00",
+    "location": "Dalyan Club",
+    "participants": "+1",
+    "image": "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    "isImageCard": true
+  }
+]

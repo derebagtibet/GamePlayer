@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Etkinlik Listeleme</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "primary-dark": "#0eb545",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2e22",
+                        "text-main": "#111813",
+                        "text-secondary": "#61896f",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .skeleton-shimmer {
+            animation: shimmer 2s infinite linear;
+            background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+            background-size: 1000px 100%;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-display antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex h-full min-h-screen w-full flex-col mx-auto max-w-md bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+<!-- Header -->
+<header class="sticky top-0 z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-gray-100 dark:border-white/5 pb-2 transition-colors duration-300">
+<div class="flex items-center justify-between p-4 pb-2">
+<div>
+<p class="text-xs font-medium text-primary uppercase tracking-wider mb-1">Keşfet</p>
+<h2 class="text-[#111813] dark:text-white text-2xl font-bold leading-tight tracking-tight">Etkinlikler</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white dark:bg-surface-dark border border-gray-100 dark:border-white/10 shadow-sm text-[#111813] dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">notifications</span>
+</button>
+<!-- Map/List Toggle -->
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-primary text-[#102216] shadow-md shadow-primary/20 hover:bg-primary-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">map</span>
+</button>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar items-center">
+<!-- Filter Settings Button -->
+<button class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 text-[#111813] dark:text-white shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 20px;">tune</span>
+</button>
+<div class="h-6 w-[1px] bg-gray-300 dark:bg-white/20 mx-1 shrink-0"></div>
+<!-- Chips -->
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-[#102216] px-4 shadow-sm shadow-primary/20 transition-transform active:scale-95">
+<p class="text-sm font-bold leading-normal">Tümü</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 px-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5 active:bg-gray-100">
+<span class="material-symbols-outlined text-sm" style="font-size: 18px;">sports_soccer</span>
+<p class="text-[#111813] dark:text-gray-200 text-sm font-medium leading-normal">Futbol</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 px-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5 active:bg-gray-100">
+<span class="material-symbols-outlined text-sm" style="font-size: 18px;">sports_basketball</span>
+<p class="text-[#111813] dark:text-gray-200 text-sm font-medium leading-normal">Basketbol</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 px-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5 active:bg-gray-100">
+<p class="text-[#111813] dark:text-gray-200 text-sm font-medium leading-normal">Bugün</p>
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-white/10 px-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5 active:bg-gray-100">
+<p class="text-[#111813] dark:text-gray-200 text-sm font-medium leading-normal">Kadıköy</p>
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">expand_more</span>
+</button>
+</div>
+</header>
+<!-- Main Content List -->
+<main class="flex-1 flex flex-col gap-4 p-4 pb-24">
+<!-- Event Card 1 (Urgent/Hot) -->
+<article class="group relative flex flex-col gap-3 rounded-2xl bg-white dark:bg-surface-dark p-4 shadow-sm border border-transparent dark:border-white/5 transition-all hover:shadow-md">
+<!-- Header: Icon & Title -->
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 flex-1">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400">
+<span class="material-symbols-outlined">sports_soccer</span>
+</div>
+<div>
+<h3 class="text-[#111813] dark:text-white text-base font-bold leading-tight">Halı Saha Maçı</h3>
+<p class="text-[#61896f] text-sm">Orta Seviye • Rekabetçi</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-red-50 dark:bg-red-900/20 px-2 py-1 text-xs font-bold text-red-700 dark:text-red-400 ring-1 ring-inset ring-red-600/10">Son 1 Kişi!</span>
+</div>
+<!-- Main Info: Time & Loc -->
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex items-center gap-2 text-[#111813] dark:text-gray-200">
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">calendar_today</span>
+<span class="text-sm font-medium">Bu Akşam, 20:00 - 21:00</span>
+</div>
+<div class="flex items-center gap-2 text-[#111813] dark:text-gray-200">
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">location_on</span>
+<span class="text-sm">Göztepe Parkı, Kadıköy</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="mt-2">
+<div class="flex justify-between mb-1">
+<span class="text-xs font-medium text-[#61896f]">Kontenjan</span>
+<span class="text-xs font-bold text-[#111813] dark:text-white">13/14</span>
+</div>
+<div class="h-2 w-full rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 92%"></div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-gray-100 dark:border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-[#61896f]">Kişi Başı</span>
+<span class="text-lg font-bold text-[#111813] dark:text-white">₺65</span>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-xl bg-primary px-6 py-2.5 text-[#102216] text-sm font-bold shadow-sm shadow-primary/30 hover:bg-primary-dark transition-colors active:scale-95">
+                        Katıl
+                    </button>
+</div>
+</article>
+<!-- Event Card 2 (Standard) -->
+<article class="group relative flex flex-col gap-3 rounded-2xl bg-white dark:bg-surface-dark p-4 shadow-sm border border-transparent dark:border-white/5 transition-all hover:shadow-md">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 flex-1">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined">sports_basketball</span>
+</div>
+<div>
+<h3 class="text-[#111813] dark:text-white text-base font-bold leading-tight">3'e 3 Basketbol</h3>
+<p class="text-[#61896f] text-sm">Başlangıç • Eğlence</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex items-center gap-2 text-[#111813] dark:text-gray-200">
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">calendar_today</span>
+<span class="text-sm font-medium">Yarın, 18:00</span>
+</div>
+<div class="flex items-center gap-2 text-[#111813] dark:text-gray-200">
+<span class="material-symbols-outlined text-[#61896f]" style="font-size: 18px;">location_on</span>
+<span class="text-sm">Caddebostan Sahil</span>
+</div>
+</div>
+<div class="mt-2">
+<div class="flex justify-between mb-1">
+<span class="text-xs font-medium text-[#61896f]">Kontenjan</span>
+<span class="text-xs font-bold text-[#111813] dark:text-white">4/6</span>
+</div>
+<div class="h-2 w-full rounded-full bg-gray-100 dark:bg-white/10 overflow-hidden">
+<div class="h-full rounded-full bg-orange-400" style="width: 66%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-gray-100 dark:border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-[#61896f]">Ücretsiz</span>
+<span class="text-lg font-bold text-[#111813] dark:text-white">Free</span>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-xl bg-gray-100 dark:bg-white/10 px-6 py-2.5 text-[#111813] dark:text-white text-sm font-bold hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
+                        Detaylar
+                    </button>
+</div>
+</article>
+<!-- Event Card 3 (With Image Background Context) -->
+<article class="group relative overflow-hidden rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-transparent dark:border-white/5 transition-all hover:shadow-md">
+<div class="relative h-32 w-full">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<img alt="Tennis court" class="h-full w-full object-cover" data-alt="Tennis court with racket and ball" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLshbIcVKS6D58Mysqg719OGMlUguy-XFYdQC6wWlp6yhkqHqzp-j5Tx2177jYHlpr__PT1cKI2FZF7uovUEVcd2xdQ0Wj6fadLkbcdMNZBHC_H4NDnikyuv6RLIS2SHsDN5TkX5ELOyiEv1KGkakCbMsXhrQNZ04LmzfeDqaDhaMhd-bGsr4bnHNouqXHMJswiCC5rFXFXe4Pfs4Pj__6Z1GoXcIf856g4n9Sg3xXnt_nKCV17_OhTygNcP6Big6csPzoDF7mrxU"/>
+<div class="absolute bottom-3 left-4 z-20">
+<span class="inline-flex items-center rounded-md bg-white/90 px-2 py-0.5 text-xs font-bold text-[#102216] mb-1">Tenis</span>
+<h3 class="text-white text-lg font-bold leading-tight">Partner Aranıyor</h3>
+</div>
+</div>
+<div class="p-4 pt-3">
+<div class="flex items-center gap-2 mb-3 text-[#61896f] text-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span>24 Ekim, 09:00</span>
+<span class="w-1 h-1 rounded-full bg-gray-300"></span>
+<span>Dalyan Club</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<img alt="User" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-surface-dark object-cover" data-alt="Portrait of a female tennis player" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPB7Kb2WM6Gz6_mJqkwtuHlR8dAMOTtyK8jrzdb94kw9VM8tMd2J03q0_fklrROOiDjrcijISEG5ElpNuL5IFkE7Og78QsOS-NwnMZEswoSw_-hW1W4sVueiNffM2JSG6NWRKhQL9psBFMKQk7Sc0IzrE5EMVhU7AQ8zlTEEFJeRlG0BtOal9NnoEmMMWNoLV8lMKMyHSQYRTFWjp2CjZoFXuUasXeKhwOhDGM-Fl01xIw4SxGu2X_5WLBzNOqsLs3NzTRxFsLxDM"/>
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10 ring-2 ring-white dark:ring-surface-dark text-xs font-bold text-[#61896f] dark:text-gray-300">+1</div>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-xl bg-primary px-5 py-2 text-[#102216] text-sm font-bold shadow-sm shadow-primary/30 hover:bg-primary-dark transition-colors">
+                            Katıl
+                        </button>
+</div>
+</div>
+</article>
+<!-- Loading Skeleton (Infinite Scroll) -->
+<div class="flex flex-col gap-3 rounded-2xl bg-white dark:bg-surface-dark p-4 border border-transparent dark:border-white/5 opacity-60">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+<div class="flex flex-col gap-2 flex-1">
+<div class="h-4 w-1/3 rounded bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+<div class="h-3 w-1/4 rounded bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+</div>
+</div>
+<div class="mt-2 h-3 w-1/2 rounded bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+<div class="mt-1 h-3 w-2/3 rounded bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+<div class="mt-4 h-2 w-full rounded bg-gray-200 dark:bg-white/10 skeleton-shimmer"></div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 z-50 w-full max-w-md bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-white/5 pb-safe">
+<div class="flex h-16 items-center justify-around px-2">
+<button class="group flex flex-col items-center justify-center gap-1 w-16">
+<span class="material-symbols-outlined text-[#61896f] group-hover:text-primary transition-colors">home</span>
+<span class="text-[10px] font-medium text-[#61896f] group-hover:text-primary transition-colors">Ana Sayfa</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 w-16">
+<span class="material-symbols-outlined text-primary fill-current">explore</span>
+<span class="text-[10px] font-bold text-primary">Keşfet</span>
+</button>
+<!-- Center FAB (Create) -->
+<button class="relative -top-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#111813] dark:bg-primary text-primary dark:text-[#102216] shadow-lg shadow-black/20 hover:scale-105 transition-transform border-4 border-white dark:border-background-dark">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 w-16">
+<span class="material-symbols-outlined text-[#61896f] group-hover:text-primary transition-colors">chat_bubble</span>
+<span class="text-[10px] font-medium text-[#61896f] group-hover:text-primary transition-colors">Mesajlar</span>
+</button>
+<button class="group flex flex-col items-center justify-center gap-1 w-16">
+<span class="material-symbols-outlined text-[#61896f] group-hover:text-primary transition-colors">person</span>
+<span class="text-[10px] font-medium text-[#61896f] group-hover:text-primary transition-colors">Profil</span>
+</button>
+</div>
+</nav>
+</div>
+</body></html>
