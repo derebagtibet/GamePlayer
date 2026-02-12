@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arama Sonuçları - Spor Uygulaması</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class", 
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#90b517", 
+                        "primary-dark": "#7a9b13", 
+                        "background-light": "#f7f8f6", 
+                        "background-dark": "#1d2111", 
+                        "surface-light": "#ffffff", 
+                        "surface-dark": "#2a301c", 
+                        "text-main-light": "#161811", 
+                        "text-main-dark": "#e8ebe2", 
+                        "text-sub-light": "#7f8863", 
+                        "text-sub-dark": "#aeb59a"
+                    }, 
+                    fontFamily: {
+                        display: "Sora"
+                    }, 
+                    borderRadius: {
+                        DEFAULT: "0.5rem", 
+                        lg: "1rem", 
+                        xl: "1.5rem", 
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto overflow-x-hidden shadow-xl bg-surface-light dark:bg-background-dark">
+<div class="sticky top-0 z-20 bg-surface-light/95 dark:bg-background-dark/95 backdrop-blur-sm shadow-sm border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center px-4 py-3 gap-3">
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors -ml-2 text-text-sub-light dark:text-text-sub-dark">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="relative flex-1 group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-400 dark:text-gray-500 text-[20px] pointer-events-none">search</span>
+<input class="w-full h-10 rounded-full bg-gray-100 dark:bg-surface-dark border-none py-2 pl-10 pr-9 text-sm text-text-main-light dark:text-text-main-dark placeholder-text-sub-light focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-surface-dark/80 transition-all shadow-sm" placeholder="Etkinlik, takım veya kişi ara..." type="text" value="Kadıköy"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<div class="px-4 pb-0">
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3">
+<button class="shrink-0 rounded-full bg-text-main-light dark:bg-white px-4 py-1.5 text-xs font-semibold text-white dark:text-background-dark shadow-sm transition-transform active:scale-95">
+                        Tümü
+                    </button>
+<button class="shrink-0 rounded-full border border-gray-200 dark:border-gray-700 bg-transparent px-4 py-1.5 text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors active:scale-95">
+                        Etkinlikler
+                    </button>
+<button class="shrink-0 rounded-full border border-gray-200 dark:border-gray-700 bg-transparent px-4 py-1.5 text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors active:scale-95">
+                        Takımlar
+                    </button>
+<button class="shrink-0 rounded-full border border-gray-200 dark:border-gray-700 bg-transparent px-4 py-1.5 text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors active:scale-95">
+                        Kullanıcılar
+                    </button>
+<button class="shrink-0 rounded-full border border-gray-200 dark:border-gray-700 bg-transparent px-4 py-1.5 text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors active:scale-95">
+                        Lokasyonlar
+                    </button>
+</div>
+</div>
+</div>
+<div class="flex flex-col flex-1 overflow-y-auto pb-24">
+<div class="pt-4 pb-2">
+<div class="flex items-center justify-between px-5 mb-2">
+<h3 class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Etkinlikler</h3>
+<button class="text-xs font-medium text-primary hover:text-primary-dark">Daha fazla göster</button>
+</div>
+<div class="px-4 space-y-3">
+<div class="flex bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="shrink-0 flex flex-col items-center justify-center w-14 h-14 bg-primary/10 rounded-lg text-primary mr-3">
+<span class="text-[10px] font-bold uppercase">EKİM</span>
+<span class="text-xl font-bold">14</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1">
+<span class="bg-yellow-100 dark:bg-yellow-900/40 px-0.5 rounded text-text-main-light dark:text-white">Kadıköy</span> 7v7 Halı Saha
+                            </h4>
+<div class="flex items-center gap-3 text-xs text-text-sub-light dark:text-text-sub-dark">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 21:00
+                                </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sports_soccer</span> Futbol
+                                </div>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-text-sub-light/80 dark:text-text-sub-dark/80 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">location_on</span>
+                                Moda Sahil Spor Tesisleri
+                            </div>
+</div>
+</div>
+<div class="flex bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="shrink-0 flex flex-col items-center justify-center w-14 h-14 bg-orange-50 dark:bg-orange-900/10 text-orange-600 dark:text-orange-400 rounded-lg mr-3">
+<span class="text-[10px] font-bold uppercase">EKİM</span>
+<span class="text-xl font-bold">16</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1">
+                                Basketbol 3x3 Turnuvası
+                            </h4>
+<div class="flex items-center gap-3 text-xs text-text-sub-light dark:text-text-sub-dark">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 19:30
+                                </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sports_basketball</span> Basketbol
+                                </div>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-text-sub-light/80 dark:text-text-sub-dark/80 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">location_on</span>
+<span class="bg-yellow-100 dark:bg-yellow-900/40 px-0.5 rounded text-text-main-light dark:text-white">Kadıköy</span> Caferağa
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-4 pb-2">
+<div class="flex items-center justify-between px-5 mb-2">
+<h3 class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Kullanıcılar</h3>
+<button class="text-xs font-medium text-primary hover:text-primary-dark">Daha fazla göster</button>
+</div>
+<div class="px-4 space-y-3">
+<div class="flex items-center bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="relative shrink-0 mr-3">
+<div class="h-12 w-12 rounded-full bg-gray-200 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6KGzexNWqCZ6fRjlOmVSGU6weInfIz7L52yXPjuN3tKT8YZzIEyj-dyBIvv5bBZS_MskxpdqXIAWuPlSFmW-N-1Ov4BWNmyDESKhrUiaa6KBuwc-wfmErp7UmpvxuFls-Cjr1z_snK6fR_D_I4sIMjstCqe3W4qDPhBDeDprcGUEwQvB4DvCmc2WtC4VpNipq39S5vEeG9bEen8h0PIlaoNxF68acv72juto0aSRISUVuGd1zZ8zMWE-L77VzTB3ahlWqR2A4D_Y");'></div>
+<div class="absolute -bottom-1 -right-1 bg-white dark:bg-surface-dark p-0.5 rounded-full">
+<div class="bg-primary h-3.5 w-3.5 rounded-full border-2 border-white dark:border-surface-dark"></div>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark truncate">
+                                Ahmet <span class="bg-yellow-100 dark:bg-yellow-900/40 px-0.5 rounded text-text-main-light dark:text-white">Kadıköy</span>lü
+                            </h4>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark truncate">Forvet • İleri Seviye</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-yellow-500 filled">star</span>
+<span class="text-[10px] font-bold text-text-main-light dark:text-text-main-dark">4.9</span>
+<span class="text-[10px] text-text-sub-light dark:text-text-sub-dark">(24 maç)</span>
+</div>
+</div>
+<button class="ml-2 shrink-0 px-4 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary-dark dark:text-primary rounded-full text-xs font-semibold transition-colors">
+                            Takip Et
+                        </button>
+</div>
+<div class="flex items-center bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="relative shrink-0 mr-3">
+<div class="h-12 w-12 rounded-full bg-gray-200 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2TLopSKEg4NccCQafAAON_q5xJGzZnp98FOMeoJCDeqlDu9ZE6M1u0dIAhVPRO9EZhbvYnJT73HpUd451_ku02veQL1n8uQwZp35i1L4fnPWQ4ld8oPfiI3O5afCuNuC9zy6myg5XVEvvizRzldemtxU0e2cG56H_HONiQ_cMzn67jSrPxcjyMOInbPvQFxPuO3BLcrauXxaV501Q49vKxaj-MjyW0Uys-vGiRj9cHXJvYE7-GssXZE_WnL5jeX85YLc81iofvT8");'></div>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark truncate">
+                                Zeynep Yılmaz
+                            </h4>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark truncate">Kaleci • Orta Seviye</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-text-sub-light/40 filled">star</span>
+<span class="text-[10px] font-bold text-text-main-light dark:text-text-main-dark">Yeni</span>
+</div>
+</div>
+<button class="ml-2 shrink-0 px-4 py-1.5 bg-text-main-light dark:bg-white text-white dark:text-background-dark hover:opacity-90 rounded-full text-xs font-semibold transition-colors">
+                            Takip Et
+                        </button>
+</div>
+</div>
+</div>
+<div class="pt-4 pb-2">
+<div class="flex items-center justify-between px-5 mb-2">
+<h3 class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Takımlar</h3>
+<button class="text-xs font-medium text-primary hover:text-primary-dark">Daha fazla göster</button>
+</div>
+<div class="flex gap-4 px-4 overflow-x-auto no-scrollbar pb-2">
+<div class="min-w-[140px] w-[140px] bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center text-center cursor-pointer hover:border-primary/50 transition-colors">
+<div class="h-14 w-14 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl">shield</span>
+</div>
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1 w-full">
+<span class="bg-yellow-100 dark:bg-yellow-900/40 px-0.5 rounded text-text-main-light dark:text-white">Kadıköy</span> SK
+                        </h4>
+<p class="text-[10px] text-text-sub-light dark:text-text-sub-dark mb-2">Futbol</p>
+<div class="mt-auto flex -space-x-1.5">
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-gray-300"></div>
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-gray-400"></div>
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-primary flex items-center justify-center text-[8px] font-bold text-white">+12</div>
+</div>
+</div>
+<div class="min-w-[140px] w-[140px] bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center text-center cursor-pointer hover:border-primary/50 transition-colors">
+<div class="h-14 w-14 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl">local_fire_department</span>
+</div>
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1 w-full">
+                            Ateş Gücü
+                        </h4>
+<p class="text-[10px] text-text-sub-light dark:text-text-sub-dark mb-2">Voleybol</p>
+<div class="mt-auto flex -space-x-1.5">
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-gray-300"></div>
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-gray-400"></div>
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-primary flex items-center justify-center text-[8px] font-bold text-white">+5</div>
+</div>
+</div>
+<div class="min-w-[140px] w-[140px] bg-white dark:bg-surface-dark p-3 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center text-center cursor-pointer hover:border-primary/50 transition-colors">
+<div class="h-14 w-14 rounded-full bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-3xl">sports_tennis</span>
+</div>
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark line-clamp-1 w-full">
+                            Raketçiler
+                        </h4>
+<p class="text-[10px] text-text-sub-light dark:text-text-sub-dark mb-2">Tenis</p>
+<div class="mt-auto flex -space-x-1.5">
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-gray-300"></div>
+<div class="h-5 w-5 rounded-full ring-2 ring-white dark:ring-surface-dark bg-primary flex items-center justify-center text-[8px] font-bold text-white">+2</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-2 pb-6">
+<div class="flex items-center justify-between px-5 mb-2">
+<h3 class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Lokasyonlar</h3>
+<button class="text-xs font-medium text-primary hover:text-primary-dark">Daha fazla göster</button>
+</div>
+<div class="px-4 space-y-3">
+<div class="flex gap-3 bg-white dark:bg-surface-dark p-2 pr-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm cursor-pointer">
+<div class="h-16 w-16 shrink-0 rounded-lg bg-gray-200 dark:bg-gray-700 overflow-hidden relative">
+<div class="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-3xl">stadium</span>
+</div>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<h4 class="text-sm font-bold text-text-main-light dark:text-text-main-dark">
+<span class="bg-yellow-100 dark:bg-yellow-900/40 px-0.5 rounded text-text-main-light dark:text-white">Kadıköy</span> Gençlik Merkezi
+                            </h4>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-0.5 line-clamp-1">Rasimpaşa Mah. İskele Sok.</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary">near_me</span>
+<span class="text-[10px] font-semibold text-primary">1.2 km</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 pt-4 pb-8 border-t border-gray-100 dark:border-gray-800">
+<h3 class="text-xs font-bold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wider mb-3">Önerilen Aramalar</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-surface-dark text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors">Beşiktaş</span>
+<span class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-surface-dark text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors">Kaleci Arıyorum</span>
+<span class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-surface-dark text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors">Voleybol</span>
+<span class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-surface-dark text-xs font-medium text-text-sub-light dark:text-text-sub-dark hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer transition-colors">Haftasonu Maç</span>
+</div>
+</div>
+<div class="h-24"></div>
+</div>
+<div class="fixed bottom-0 w-full max-w-md bg-surface-light dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 flex justify-around items-center py-3 pb-6 safe-area-bottom z-30">
+<button class="flex flex-col items-center gap-1 text-text-sub-light dark:text-text-sub-dark group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">home</span>
+<span class="text-[10px] font-medium group-hover:text-primary transition-colors">Ana Sayfa</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary group">
+<span class="material-symbols-outlined font-bold filled">search</span>
+<span class="text-[10px] font-medium">Bul</span>
+</button>
+<div class="relative -top-6">
+<button class="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-text-sub-light dark:text-text-sub-dark group">
+<div class="relative">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications</span>
+</div>
+<span class="text-[10px] font-medium group-hover:text-primary transition-colors">Bildirimler</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-text-sub-light dark:text-text-sub-dark group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+<span class="text-[10px] font-medium group-hover:text-primary transition-colors">Profil</span>
+</button>
+</div>
+</div>
+
+</body></html>

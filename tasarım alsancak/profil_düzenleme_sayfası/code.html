@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil Düzenleme</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#17d961", "primary-hover": "#00BFA5", "background-light": "#f6f8f7", "background-dark": "#112117", "surface-light": "#FFFFFF", "surface-dark": "#1F2937", "text-main-light": "#1F2937", "text-main-dark": "#F9FAFB", "text-sub-light": "#6B7280", "text-sub-dark": "#9CA3AF"}, fontFamily: {display: "Sora"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, boxShadow: {soft: "0 4px 20px -2px rgba(0, 0, 0, 0.05)"}}}};</script>
+<style>.toggle-checkbox:checked {
+            right: 0;
+            border-color: #17d961;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #17d961;
+        }input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #17d961;
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #E5E7EB;
+            border-radius: 2px;
+        }
+        .dark input[type=range]::-webkit-slider-runnable-track {
+            background: #4B5563;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark transition-colors duration-200 pb-32">
+<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 px-4 py-4 flex items-center justify-between">
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-rounded text-2xl">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold">Profili Düzenle</h1>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-primary font-semibold">
+<span class="material-symbols-rounded text-2xl">check</span>
+</button>
+</header>
+<main class="max-w-md mx-auto p-4 space-y-6">
+<section class="relative mb-16">
+<div class="h-40 w-full rounded-2xl bg-gradient-to-r from-teal-100 to-blue-100 dark:from-teal-900 dark:to-blue-900 overflow-hidden relative group">
+<img alt="Cover background pattern" class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL19q9AkfrzU6JEsBOeI3XKXZxDgrwd-0K4jYbYXZw1-0-s46KNg140jKdaXNDMbQAqsx-2j-FTbErzXguiRae4GfpgqDXj-lNcXlzYm_O3-SLRYfTw18pWH-jNYvx7HlDT1nYPlBJO657g1tZfqw4_VPcQJOr1P12e5RZq3MTNhUd-XnIgk0EpQ_jbLssuSpZ0Yik-JLQviC-Pu2iC3wPSvk1L1xCjJvsvo3Mcaw7V4CBLbU1W3MXvJ2yLUFWbcvj5D5TndvPoBU"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-rounded text-white bg-black/50 rounded-full p-2">edit</span>
+</div>
+<button class="absolute top-2 right-2 bg-black/40 text-white rounded-full p-1.5 hover:bg-black/60 transition-colors">
+<span class="material-symbols-rounded text-sm">edit</span>
+</button>
+</div>
+<div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+<div class="relative w-28 h-28">
+<div class="w-28 h-28 rounded-full border-4 border-surface-light dark:border-surface-dark overflow-hidden bg-gray-200 dark:bg-gray-700 shadow-lg">
+<img alt="Profile of Alex Johnson" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChGS_zZNKoXXqCrZDmZ-fvgdwTAkk4ruwv_HoHkwUgrljMgFhHE4XSYkIoNSU1a-muR2SHEa6g9EiWITvqu1dFDd_CrzCVzjXsDBQ6D0qMgqwTie2_cXAiPqIvkaKGCGkZVhwSbs2EmEzpfMm7yf0esgbgQe5JkyHPUBALt7EfEm8i3-9Vz-mrqqPMceypfSrgZsGysSseDu1oh2AkFBTEG7rNnstrB-pQ0lZN5-HaRLtpkjR1DYmXZvAi5jnLc8yneO1NOLDA9wY"/>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary text-gray-900 rounded-full p-1.5 shadow-md hover:bg-primary-hover transition-colors border-2 border-surface-light dark:border-surface-dark flex items-center justify-center">
+<span class="material-symbols-rounded text-lg">photo_camera</span>
+</button>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold px-1">Genel Bilgiler</h2>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-soft space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Ad</label>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl px-4 py-3 text-sm font-medium transition-all" type="text" value="Alex"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Soyad</label>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl px-4 py-3 text-sm font-medium transition-all" type="text" value="Johnson"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">E-posta</label>
+<div class="relative">
+<span class="material-symbols-rounded absolute left-3 top-3 text-text-sub-light dark:text-text-sub-dark">mail</span>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl pl-10 pr-4 py-3 text-sm font-medium transition-all" type="email" value="alex.j@example.com"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Telefon</label>
+<div class="relative">
+<span class="material-symbols-rounded absolute left-3 top-3 text-text-sub-light dark:text-text-sub-dark">call</span>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl pl-10 pr-4 py-3 text-sm font-medium transition-all" type="tel" value="+90 555 123 4567"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Doğum Tarihi</label>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl px-4 py-3 text-sm font-medium transition-all text-text-sub-light dark:text-text-sub-dark" type="date" value="1998-05-15"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Cinsiyet</label>
+<select class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl px-4 py-3 text-sm font-medium transition-all">
+<option>Erkek</option>
+<option>Kadın</option>
+<option>Belirtmek İstemiyorum</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-semibold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide">Biyografi</label>
+<textarea class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl px-4 py-3 text-sm font-medium transition-all resize-none" placeholder="Kendinden bahset..." rows="3">Orta saha oyuncusu. Hafta sonları maç yapmayı severim. Takım oyununa önem veririm.</textarea>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<h2 class="text-xl font-bold">Sporlar &amp; Beceriler</h2>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:text-primary-hover transition-colors">
+<span class="material-symbols-rounded text-lg">add_circle</span> Ekle
+                </button>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-soft space-y-6">
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-rounded">sports_soccer</span>
+</div>
+<span class="font-bold text-base">Futbol</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold text-xs bg-primary/10 px-3 py-1 rounded-full uppercase tracking-wider">Yarı-Pro</span>
+<button class="text-text-sub-light hover:text-red-500 transition-colors">
+<span class="material-symbols-rounded text-lg">delete</span>
+</button>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs text-text-sub-light dark:text-text-sub-dark font-medium px-1">
+<span>Acemi</span>
+<span>Profesyonel</span>
+</div>
+<input class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-primary" max="100" min="0" type="range" value="85"/>
+</div>
+</div>
+<hr class="border-gray-100 dark:border-gray-700"/>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+<span class="material-symbols-rounded">sports_basketball</span>
+</div>
+<span class="font-bold text-base">Basketbol</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-orange-500 font-bold text-xs bg-orange-500/10 px-3 py-1 rounded-full uppercase tracking-wider">Orta</span>
+<button class="text-text-sub-light hover:text-red-500 transition-colors">
+<span class="material-symbols-rounded text-lg">delete</span>
+</button>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs text-text-sub-light dark:text-text-sub-dark font-medium px-1">
+<span>Acemi</span>
+<span>Profesyonel</span>
+</div>
+<input class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-orange-500" max="100" min="0" type="range" value="50"/>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold px-1">Sosyal Medya</h2>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-soft space-y-4">
+<div class="relative flex items-center">
+<div class="absolute left-3 w-8 flex justify-center text-pink-500 text-lg">
+<i class="fa-brands fa-instagram"></i>
+</div>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl pl-12 pr-4 py-3 text-sm font-medium transition-all" placeholder="Instagram Kullanıcı Adı" type="text" value="@alex_j_soccer"/>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-3 w-8 flex justify-center text-blue-400 text-lg">
+<i class="fa-brands fa-twitter"></i>
+</div>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl pl-12 pr-4 py-3 text-sm font-medium transition-all" placeholder="Twitter / X" type="text"/>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-3 w-8 flex justify-center text-black dark:text-white text-lg">
+<i class="fa-brands fa-tiktok"></i>
+</div>
+<input class="w-full bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-primary rounded-xl pl-12 pr-4 py-3 text-sm font-medium transition-all" placeholder="TikTok" type="text"/>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold px-1">Gizlilik &amp; Hesap</h2>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-soft divide-y divide-gray-100 dark:divide-gray-700">
+<div class="flex items-center justify-between py-3 first:pt-0">
+<div>
+<p class="font-semibold text-sm">Profil Görünürlüğü</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-0.5">Profilini herkes görebilir</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 dark:border-gray-600 appearance-none cursor-pointer transition-all duration-300" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300" for="toggle1"></label>
+</div>
+</div>
+<div class="flex items-center justify-between py-3">
+<div>
+<p class="font-semibold text-sm">Etkinlik Geçmişi</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-0.5">Son maçlarını göster</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 dark:border-gray-600 appearance-none cursor-pointer transition-all duration-300" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300" for="toggle2"></label>
+</div>
+</div>
+<div class="py-3">
+<button class="flex items-center justify-between w-full text-left group">
+<span class="font-semibold text-sm group-hover:text-primary transition-colors">Şifre Değiştir</span>
+<span class="material-symbols-rounded text-text-sub-light dark:text-text-sub-dark group-hover:text-primary text-lg">chevron_right</span>
+</button>
+</div>
+<div class="py-3 pb-0">
+<button class="flex items-center justify-between w-full text-left group">
+<span class="font-semibold text-sm text-red-500 group-hover:text-red-600 transition-colors">Hesabı Sil</span>
+<span class="material-symbols-rounded text-red-300 group-hover:text-red-500 text-lg">delete</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<div class="fixed bottom-0 left-0 w-full bg-surface-light dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 p-4 pb-8 z-40">
+<div class="max-w-md mx-auto flex gap-4">
+<button class="flex-1 py-3.5 rounded-xl font-bold text-sm bg-gray-100 dark:bg-gray-800 text-text-main-light dark:text-text-main-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                İptal
+            </button>
+<button class="flex-1 py-3.5 rounded-xl font-bold text-sm bg-primary text-gray-900 shadow-lg shadow-primary/30 hover:bg-primary-hover transition-transform active:scale-95">
+                Kaydet
+            </button>
+</div>
+</div>
+
+</body></html>

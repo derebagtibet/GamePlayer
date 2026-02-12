@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maçlarım - Spor Uygulaması</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#17da62", "primary-dark": "#0eb545", "background-light": "#f6f8f7", "background-dark": "#112117", "surface-light": "#ffffff", "surface-dark": "#162a1d", "text-secondary-light": "#64748b", "text-secondary-dark": "#9db9a6"}, fontFamily: {display: "Plus Jakarta Sans"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        font-family: 'Sora', sans-serif;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-filled {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }.no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f2f4f1] dark:bg-background-dark min-h-screen transition-colors duration-300">
+<div class="relative flex h-full w-full flex-col max-w-md mx-auto overflow-hidden bg-gradient-to-b from-[#fcfdfc] to-[#eff3ed] dark:from-background-dark dark:to-background-dark min-h-screen shadow-2xl">
+<header class="flex items-center justify-between px-6 pt-8 pb-4 bg-white/80 backdrop-blur-md dark:bg-background-dark/90 sticky top-0 z-30 border-b border-white/20 dark:border-white/5">
+<h1 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Maçlarım</h1>
+<button class="relative p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white !text-[28px]">notifications</span>
+<span class="absolute top-2 right-2 flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+</button>
+</header>
+<div class="px-4 pb-2 sticky top-[73px] z-20 bg-white/80 backdrop-blur-md dark:bg-background-dark/90 pt-2">
+<div class="flex p-1 bg-slate-200/70 dark:bg-[#1c3023] rounded-xl relative backdrop-blur-sm">
+<div class="w-1/2 bg-white dark:bg-[#283f30] shadow-sm rounded-lg absolute h-[calc(100%-8px)] top-1 left-1 transition-all duration-300"></div>
+<button class="flex-1 relative z-10 py-2.5 text-center text-sm font-bold text-slate-900 dark:text-white transition-colors">
+                Yaklaşan Maçlar
+            </button>
+<button class="flex-1 relative z-10 py-2.5 text-center text-sm font-bold text-slate-500 dark:text-[#6c8876] hover:text-slate-700 dark:hover:text-white transition-colors">
+                Geçmiş Maçlar
+            </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-4 pb-24 no-scrollbar">
+<div class="flex items-center gap-2 mb-2 px-1">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-[#587a63]">Bugün</span>
+<div class="h-px bg-slate-200 dark:bg-[#283f30] flex-1"></div>
+</div>
+<div class="group relative flex flex-col gap-3 bg-gradient-to-br from-white to-[#f0f7f2] dark:bg-surface-dark dark:from-surface-dark dark:to-surface-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 active:scale-[0.98] transition-all duration-200">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white dark:bg-[#233629] text-primary dark:text-white shadow-sm border border-slate-50 dark:border-none">
+<span class="material-symbols-outlined !text-[32px]">sports_soccer</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">Halı Saha Maçı</h3>
+<div class="flex items-center gap-1 mt-1 text-text-secondary-light dark:text-text-secondary-dark text-sm">
+<span class="material-symbols-outlined !text-[16px]">location_on</span>
+<span>Özgürlük Parkı, Kadıköy</span>
+</div>
+</div>
+</div>
+<div class="flex h-7 items-center justify-center rounded-lg bg-primary/10 px-2.5 border border-primary/20 backdrop-blur-sm">
+<span class="text-xs font-bold text-primary-dark dark:text-primary uppercase tracking-wide">Oluşturan</span>
+</div>
+</div>
+<div class="h-px w-full bg-slate-100/50 dark:bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary !text-[20px]">schedule</span>
+<span class="text-slate-700 dark:text-gray-200 text-sm font-semibold">20:00 - 21:00</span>
+</div>
+<div class="flex items-center -space-x-2">
+<img class="h-7 w-7 rounded-full border-2 border-white dark:border-surface-dark object-cover" data-alt="User avatar woman smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB5R7HINogG66maJa21BtyLtXcGco69hRdum5eDR7ngrleJj4cDqnSXmMEfXzVqplSoE9-e_oM6hTCBN0lHwrQvA_HUWQIREqUFAGrFApq-EQrP1u2V0_5Ti6x4i2bM_Exw8xHyBDlSuiDKSQ0ZYmUsfW7uGRvt4PWGNw5l_mQQY0d4O5_R6ihhU4clozfoTkDq4IlFhqyLHRFTRDaizi7MAhPAMzbDhMkwZyc-DUzR7TnWSkGux6AE0c6CIA4z6xYcNBZzhhdaEw"/>
+<img class="h-7 w-7 rounded-full border-2 border-white dark:border-surface-dark object-cover" data-alt="User avatar man portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmrLo1XXT5gdXNcRQxyntcUABSup-HLaRrTsp3HSQEMNhuIgUareCg3H_Ipnov8A9QDH0M073detWCMR9CmsNdFZrd3jVGmGaYmmtBS7LgN2LDfbIlxr-CqfmU24YA_q3vU_MzR1WBgtSe6ZhAs8tVdLjfz5by4NRVPPnLNWLXZTrzxzdMn6Jxlf-tRzQAFPq8ylyh0NyRfE3LLPs-P4aC5VQKhT4jHussPeh4lFb2wn7mfZKaJGg5FOTlnNdWPWhRNd7P8oXgofw"/>
+<img class="h-7 w-7 rounded-full border-2 border-white dark:border-surface-dark object-cover" data-alt="User avatar man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSoziOm0L1GmLECTI_P4FwhTpSHiaAPQOEZP9r2la5kiBrFwF1T9t9pI4eOZRt9d7aJLt-WsSnFTzQEQy3HtLvY6lqg6c8dyo3IrlZ_Fb9cS_gWVw5GF9wTlLW1Ju19Syaj81_e_9iMfONtJg21aD9ZmxPh_BJTSK9CVdbofupTNhOZqAj3OnfaRfOWCDcKDweFqFGpo0BcqHoEybkxYizpCHrOOCDkK9-hvAIXmC1hjnyeLLog_RwFYHF3ZsmNLmYUtJ8sJjdlh4"/>
+<div class="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white dark:border-surface-dark bg-slate-100 dark:bg-[#283f30] text-[10px] font-bold text-slate-600 dark:text-white">
+                        +4
+                    </div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-6 mb-2 px-1">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-[#587a63]">Bu Hafta</span>
+<div class="h-px bg-slate-200 dark:bg-[#283f30] flex-1"></div>
+</div>
+<div class="group relative flex flex-col gap-3 bg-gradient-to-br from-white to-[#f4f7f9] dark:bg-surface-dark dark:from-surface-dark dark:to-surface-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 active:scale-[0.98] transition-all duration-200">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white dark:bg-[#233629] text-orange-500 dark:text-white shadow-sm border border-slate-50 dark:border-none">
+<span class="material-symbols-outlined !text-[32px]">sports_basketball</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">3v3 Basketbol</h3>
+<div class="flex items-center gap-1 mt-1 text-text-secondary-light dark:text-text-secondary-dark text-sm">
+<span class="material-symbols-outlined !text-[16px]">location_on</span>
+<span>Abbasağa Parkı, Beşiktaş</span>
+</div>
+</div>
+</div>
+<div class="flex h-7 items-center justify-center rounded-lg bg-slate-100/80 dark:bg-white/5 px-2.5">
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Katılımcı</span>
+</div>
+</div>
+<div class="h-px w-full bg-slate-100/50 dark:bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 dark:text-[#587a63] !text-[20px]">calendar_today</span>
+<span class="text-slate-700 dark:text-gray-300 text-sm font-medium">16 Ekim Çar</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary !text-[20px]">schedule</span>
+<span class="text-slate-700 dark:text-gray-200 text-sm font-semibold">18:00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 bg-gradient-to-br from-white to-[#fcfce8] dark:bg-surface-dark dark:from-surface-dark dark:to-surface-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 active:scale-[0.98] transition-all duration-200">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white dark:bg-[#233629] text-primary dark:text-white shadow-sm border border-slate-50 dark:border-none">
+<span class="material-symbols-outlined !text-[32px]">sports_tennis</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">Tenis Partneri</h3>
+<div class="flex items-center gap-1 mt-1 text-text-secondary-light dark:text-text-secondary-dark text-sm">
+<span class="material-symbols-outlined !text-[16px]">location_on</span>
+<span>Dalyan Club, Kadıköy</span>
+</div>
+</div>
+</div>
+<div class="flex h-7 items-center justify-center rounded-lg bg-primary/10 px-2.5 border border-primary/20 backdrop-blur-sm">
+<span class="text-xs font-bold text-primary-dark dark:text-primary uppercase tracking-wide">Oluşturan</span>
+</div>
+</div>
+<div class="h-px w-full bg-slate-100/50 dark:bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 dark:text-[#587a63] !text-[20px]">calendar_today</span>
+<span class="text-slate-700 dark:text-gray-300 text-sm font-medium">19 Ekim Cmt</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary !text-[20px]">schedule</span>
+<span class="text-slate-700 dark:text-gray-200 text-sm font-semibold">10:00</span>
+</div>
+</div>
+<img class="h-7 w-7 rounded-full border-2 border-white dark:border-surface-dark object-cover" data-alt="User avatar man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsrBzaIqpVOw4pKpfcknZyTjETo1R47NxJwsGw7JzB27stkkltFnc5DR8QgOTHFlmkjd52RAL8H9CkLtPg6eLbQqklklc0yU8xwzGereFbjtRMMuY3U-Lh01ZFDVZS3xZmjKRw0a3tG1JIzNIqg0TnP_zmBzL2qCZJLW7sEly7XwCdSPvwkiqYkKS8Dh1ZcZcLL9AgkaXyP5G5fC68RYjVHvSFJiMSrKlQe1hptWtbpxe5HPg8cb9j8axvZh81wwFmuxQwBBQ3iMk"/>
+</div>
+</div>
+<div class="group relative flex flex-col gap-3 bg-gradient-to-br from-white to-[#f5f0ff] dark:bg-surface-dark dark:from-surface-dark dark:to-surface-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 active:scale-[0.98] transition-all duration-200 opacity-90 hover:opacity-100">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white dark:bg-[#233629] text-violet-500 dark:text-white shadow-sm border border-slate-50 dark:border-none">
+<span class="material-symbols-outlined !text-[32px]">sports_volleyball</span>
+</div>
+<div class="flex flex-col pt-0.5">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">Voleybol Maçı</h3>
+<div class="flex items-center gap-1 mt-1 text-text-secondary-light dark:text-text-secondary-dark text-sm">
+<span class="material-symbols-outlined !text-[16px]">location_on</span>
+<span>Burhan Felek Spor Salonu</span>
+</div>
+</div>
+</div>
+<div class="flex h-7 items-center justify-center rounded-lg bg-slate-100/80 dark:bg-white/5 px-2.5">
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Katılımcı</span>
+</div>
+</div>
+<div class="h-px w-full bg-slate-100/50 dark:bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 dark:text-[#587a63] !text-[20px]">calendar_today</span>
+<span class="text-slate-700 dark:text-gray-300 text-sm font-medium">21 Ekim Pzt</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary !text-[20px]">schedule</span>
+<span class="text-slate-700 dark:text-gray-200 text-sm font-semibold">19:30</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 z-30">
+<button class="flex items-center justify-center h-14 w-14 rounded-full bg-primary shadow-lg shadow-primary/40 hover:scale-105 active:scale-95 transition-all duration-200 text-white">
+<span class="material-symbols-outlined !text-[32px]">add</span>
+</button>
+</div>
+<div class="pointer-events-none absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-[#f2f4f1] dark:from-background-dark to-transparent"></div>
+</div>
+</body></html>
