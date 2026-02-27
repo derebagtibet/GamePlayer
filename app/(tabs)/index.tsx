@@ -697,4 +697,3 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     fontWeight: '500',
   },
 });
-

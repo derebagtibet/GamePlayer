@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,7 +16,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
 import { API_URL } from '@/constants/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useCallback } from 'react';
 
 const COLORS = {
   primary: '#d0ebbc',

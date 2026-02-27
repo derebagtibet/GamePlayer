@@ -151,9 +151,6 @@ export default function ChatDetailScreen() {
         const data = await response.json();
         if (data.status !== 'success') {
             console.error('Mesaj gönderilemedi:', data.message);
-            // Hata durumunda rollback yapılabilir veya kullanıcı uyarılabilir
-        } else {
-             // Mesaj başarıyla gönderildi, id güncellenebilir
         }
     } catch (error) {
         console.error('Mesaj gönderme hatası:', error);
@@ -440,6 +437,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     color: isDark ? COLORS.textDark : COLORS.textLight,
     paddingVertical: 12,
     maxHeight: 100,
+    marginLeft: 12,
   },
   emojiButton: {
     padding: 8,

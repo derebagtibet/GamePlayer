@@ -74,11 +74,17 @@ export default function ProfileEditScreen() {
 
   const uploadImage = async (uri: string) => {
       setUploading(true);
+      
+      // Dosya adını ve tipini URI'den çıkar
+      const filename = uri.split('/').pop() || 'upload.jpg';
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : 'image/jpeg';
+
       const formData = new FormData();
       formData.append('file', {
           uri,
-          name: 'upload.jpg',
-          type: 'image/jpeg',
+          name: filename,
+          type,
       } as any);
 
       try {
@@ -89,12 +95,22 @@ export default function ProfileEditScreen() {
                   'Content-Type': 'multipart/form-data',
               },
           });
-          const data = await response.json();
-          setUploading(false);
-          if (data.status === 'success') {
-              return data.url;
-          } else {
-              Alert.alert('Yükleme Hatası', data.message);
+          
+          // JSON parse hatasını önlemek için önce text al
+          const text = await response.text();
+          try {
+              const data = JSON.parse(text);
+              setUploading(false);
+              if (data.status === 'success') {
+                  return data.url;
+              } else {
+                  Alert.alert('Yükleme Hatası', data.message || 'Bilinmeyen bir hata oluştu.');
+                  return null;
+              }
+          } catch (e) {
+              console.error('JSON Parse Hatası:', text);
+              setUploading(false);
+              Alert.alert('Hata', 'Sunucudan geçersiz yanıt alındı.');
               return null;
           }
       } catch (e) {
@@ -383,7 +399,7 @@ export default function ProfileEditScreen() {
               <TouchableOpacity style={styles.cancelButton} onPress={() => router.back()}>
                   <Text style={styles.cancelButtonText}>İptal</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.saveButton} onPress={() => router.back()}>
+              <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
                   <Text style={styles.saveButtonText}>Kaydet</Text>
               </TouchableOpacity>
           </View>

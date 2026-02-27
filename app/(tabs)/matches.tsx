@@ -204,35 +204,48 @@ const MatchCard = ({ match, isDark, router, styles }: any) => (
   </TouchableOpacity>
 );
 
-const PastMatchCard = ({ match, isDark, styles }: any) => (
-  <View style={[styles.card, { opacity: 0.9 }]}>
-      <View style={styles.cardHeader}>
-          <View style={styles.cardInfo}>
-              <View style={[styles.iconBox, { backgroundColor: isDark ? '#1c2a20' : '#f8fafc' }]}>
-                  <MaterialIcons name={match.icon} size={32} color={isDark ? COLORS.textSecondaryDark : COLORS.gray} />
-              </View>
-              <View>
-                  <Text style={[styles.cardTitle, { color: isDark ? COLORS.textSecondaryDark : '#64748b' }]}>{match.title}</Text>
-                  <View style={styles.locationRow}>
-                      <MaterialIcons name="calendar-today" size={16} color={isDark ? COLORS.textSecondaryDark : COLORS.textSecondaryLight} />
-                      <Text style={styles.locationText}>{match.date}</Text>
-                  </View>
-              </View>
-          </View>
-          <View style={[styles.scoreBadge, match.result === 'WON' ? styles.scoreWon : styles.scoreLost]}>
-              <Text style={styles.scoreText}>{match.score}</Text>
-          </View>
-      </View>
-      <View style={styles.cardFooterPast}>
-          <Text style={styles.pastLocationText}>{match.location}</Text>
-          <View style={styles.resultTag}>
-            <Text style={[styles.resultTabText, match.result === 'WON' ? { color: COLORS.primary } : { color: '#ef4444' }]}>
-              {match.result === 'WON' ? 'GALİBİYET' : 'MAĞLUBİYET'}
-            </Text>
-          </View>
-      </View>
-  </View>
-);
+const PastMatchCard = ({ match, isDark, styles }: any) => {
+  const getResultInfo = (result: string) => {
+    switch (result) {
+      case 'WON': return { label: 'GALİBİYET', color: COLORS.primary, style: styles.scoreWon };
+      case 'LOST': return { label: 'MAĞLUBİYET', color: '#ef4444', style: styles.scoreLost };
+      case 'DRAW': return { label: 'BERABERLİK', color: '#f59e0b', style: styles.scoreDraw };
+      default: return { label: 'SONUÇLANMADI', color: COLORS.gray, style: styles.scoreDefault };
+    }
+  };
+
+  const resultInfo = getResultInfo(match.result);
+
+  return (
+    <View style={[styles.card, { opacity: 0.9 }]}>
+        <View style={styles.cardHeader}>
+            <View style={styles.cardInfo}>
+                <View style={[styles.iconBox, { backgroundColor: isDark ? '#1c2a20' : '#f8fafc' }]}>
+                    <MaterialIcons name={match.icon} size={32} color={isDark ? COLORS.textSecondaryDark : COLORS.gray} />
+                </View>
+                <View>
+                    <Text style={[styles.cardTitle, { color: isDark ? COLORS.textSecondaryDark : '#64748b' }]}>{match.title}</Text>
+                    <View style={styles.locationRow}>
+                        <MaterialIcons name="calendar-today" size={16} color={isDark ? COLORS.textSecondaryDark : COLORS.textSecondaryLight} />
+                        <Text style={styles.locationText}>{match.date}</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={[styles.scoreBadge, resultInfo.style]}>
+                <Text style={styles.scoreText}>{match.score || '- / -'}</Text>
+            </View>
+        </View>
+        <View style={styles.cardFooterPast}>
+            <Text style={styles.pastLocationText}>{match.location}</Text>
+            <View style={styles.resultTag}>
+              <Text style={[styles.resultTabText, { color: resultInfo.color }]}>
+                {resultInfo.label}
+              </Text>
+            </View>
+        </View>
+    </View>
+  );
+};
 
 const getStyles = (isDark: boolean) => StyleSheet.create({
   container: {
@@ -461,6 +474,12 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   },
   scoreLost: {
     backgroundColor: 'rgba(239, 68, 68, 0.1)',
+  },
+  scoreDraw: {
+    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+  },
+  scoreDefault: {
+    backgroundColor: 'rgba(156, 163, 175, 0.1)',
   },
   scoreText: {
     fontSize: 16,

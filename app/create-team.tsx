@@ -477,4 +477,3 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     fontSize: 16,
   },
 });
-

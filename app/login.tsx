@@ -222,24 +222,22 @@ export default function LoginScreen() {
                  <View style={styles.inputGroup}>
                     <Text style={styles.label}>Ad Soyad</Text>
                     <TextInput 
-                        style={styles.input} 
+                        style={[styles.input, {paddingLeft: 16}]} 
                         placeholder="Ahmet Yılmaz" 
                         placeholderTextColor="#9ca3af"
                         value={fullName}
                         onChangeText={setFullName}
-                        style={[styles.input, {paddingLeft: 16}]}
                     />
                  </View>
 
                  <View style={styles.inputGroup}>
                     <Text style={styles.label}>E-posta</Text>
                     <TextInput 
-                        style={styles.input} 
+                        style={[styles.input, {paddingLeft: 16}]} 
                         placeholder="ornek@mail.com" 
                         placeholderTextColor="#9ca3af"
                         value={email}
                         onChangeText={setEmail}
-                        style={[styles.input, {paddingLeft: 16}]}
                         autoCapitalize="none"
                     />
                  </View>
@@ -247,13 +245,12 @@ export default function LoginScreen() {
                  <View style={styles.inputGroup}>
                     <Text style={styles.label}>Şifre</Text>
                     <TextInput 
-                        style={styles.input} 
+                        style={[styles.input, {paddingLeft: 16}]} 
                         placeholder="••••••••" 
                         placeholderTextColor="#9ca3af"
                         secureTextEntry
                         value={password}
                         onChangeText={setPassword}
-                        style={[styles.input, {paddingLeft: 16}]}
                     />
                  </View>
 

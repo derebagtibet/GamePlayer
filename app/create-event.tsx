@@ -452,8 +452,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: isDark ? COLORS.surfaceDark : '#f3f4f6',
     borderRadius: 12,
-    padding: 4,
-    gap: 4,
+    padding: 4, gap: 4,
   },
   typeOption: {
     flex: 1,

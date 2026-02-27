@@ -161,7 +161,7 @@ export default function ExploreScreen() {
           <Text style={styles.headerTitle}>Etkinlikler</Text>
         </View>
         <View style={styles.headerActions}>
-          <TouchableOpacity style={styles.iconButton} onPress={fetchEvents}>
+          <TouchableOpacity style={styles.iconButton} onPress={() => fetchEvents(selectedCategory)}>
             <MaterialIcons name="refresh" size={24} color={isDark ? 'white' : '#111813'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
@@ -356,8 +356,8 @@ export default function ExploreScreen() {
 
         {filteredEvents.length === 0 && !loading && (
           <View style={{ padding: 40, alignItems: 'center' }}>
-            <MaterialIcons name="search-off" size={48} color={COLORS.gray} />
-            <Text style={{ color: COLORS.gray, marginTop: 16, fontSize: 16 }}>Bu kategoride etkinlik bulunamadı.</Text>
+            <MaterialIcons name="search-off" size={48} color={COLORS.grayLight} />
+            <Text style={{ color: COLORS.textSecondary, marginTop: 16, fontSize: 16 }}>Bu kategoride etkinlik bulunamadı.</Text>
           </View>
         )}
 

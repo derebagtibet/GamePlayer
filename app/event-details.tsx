@@ -68,9 +68,9 @@ export default function EventDetailsScreen() {
       const data = await response.json();
       if (data.status === 'success') {
         setEventData(data.event);
-        setParticipants(data.participants);
+        setParticipants(data.participants || []);
         // Kullanıcı katılmış mı kontrol et
-        const joined = data.participants.some((p: any) => p.id.toString() === userId);
+        const joined = (data.participants || []).some((p: any) => p.id.toString() === userId);
         setIsJoined(joined);
       }
     } catch (error) {
@@ -243,7 +243,7 @@ export default function EventDetailsScreen() {
                     <View key={p.id} style={[styles.participantCard, p.is_organizer && styles.organizerCard]}>
                         <View style={styles.avatarContainer}>
                             <Image 
-                                source={{ uri: (p.avatar_url && p.avatar_url.length > 0) ? p.avatar_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}` }} 
+                                source={{ uri: (p.avatar_url && p.avatar_url.length > 0) ? p.avatar_url : `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name || 'User')}` }} 
                                 style={styles.avatar} 
                             />
                             {p.is_organizer && (
@@ -255,7 +255,7 @@ export default function EventDetailsScreen() {
                         <View style={styles.participantInfo}>
                             <View style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
                                 <TouchableOpacity onPress={() => router.push(`/user-profile/${p.id}`)}>
-                                    <Text style={styles.participantName}>{String(p.name)}</Text>
+                                    <Text style={styles.participantName}>{p.name || 'İsimsiz'}</Text>
                                 </TouchableOpacity>
                                 {p.is_organizer && (
                                     <View style={styles.roleBadgeOrganizer}>
@@ -263,7 +263,7 @@ export default function EventDetailsScreen() {
                                     </View>
                                 )}
                             </View>
-                            <Text style={styles.positionText}>{String(p.position || 'Oyuncu')}</Text>
+                            <Text style={styles.positionText}>{p.position || 'Oyuncu'}</Text>
                         </View>
                         <View style={styles.participantActions}>
                             <TouchableOpacity style={styles.chatButton} onPress={() => handleChat(p.id)}>

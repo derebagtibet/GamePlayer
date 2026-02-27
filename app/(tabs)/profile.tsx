@@ -99,7 +99,7 @@ export default function ProfileScreen() {
         {/* Hero Section */}
         <View style={styles.heroSection}>
             <Image
-                source={{ uri: 'https://images.unsplash.com/photo-1522778119026-d647f0565c6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' }}
+                source={{ uri: (profile.cover && profile.cover.length > 0) ? profile.cover : 'https://images.unsplash.com/photo-1522778119026-d647f0565c6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' }}
                 style={styles.heroImage}
             />
             <LinearGradient
