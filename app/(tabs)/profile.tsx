@@ -1,8 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
-import React, { useState, useEffect } from 'react';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { apiGet } from '@/constants/api';
+import React, { useState, useCallback } from 'react';
 import {
   Dimensions,
   Image,
@@ -41,21 +41,30 @@ export default function ProfileScreen() {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // Profil düzenleme sonrası geri dönüşte otomatik yenilensin
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
+      const load = async () => {
+        const userId = await AsyncStorage.getItem('user_id');
+        if (!userId || cancelled) { setLoading(false); return; }
+        const { ok, data } = await apiGet(`/backend/profile_api.php?user_id=${userId}`);
+        if (!cancelled) {
+          if (ok && data) setProfile(data);
+          setLoading(false);
+        }
+      };
+      setLoading(true);
+      load();
+      return () => { cancelled = true; };
+    }, [])
+  );
 
   const fetchProfile = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/profile_api.php?user_id=${userId}`);
-      const data = await response.json();
-      setProfile(data);
-    } catch (error) {
-      console.error('Profil verisi çekilemedi:', error);
-    } finally {
-      setLoading(false);
-    }
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const { ok, data } = await apiGet(`/backend/profile_api.php?user_id=${userId}`);
+    if (ok && data) setProfile(data);
   };
 
   const handleLogout = async () => {
@@ -112,13 +121,13 @@ export default function ProfileScreen() {
             <View style={styles.heroContent}>
                 <View style={styles.verifiedBadge}>
                      <MaterialIcons name="verified" size={16} color="white" />
-                     <Text style={styles.verifiedText}>{profile.status}</Text>
+                     <Text style={styles.verifiedText}>{profile.status || ''}</Text>
                 </View>
-                <Text style={styles.userName}>{profile.name.replace(' ', '\n')}</Text>
+                <Text style={styles.userName}>{(profile.name || '').replace(' ', '\n')}</Text>
                 <View style={styles.userStats}>
-                    <Text style={styles.userStatText}>{profile.position}</Text>
+                    <Text style={styles.userStatText}>{profile.position || ''}</Text>
                     <View style={styles.statDot} />
-                    <Text style={styles.userStatText}>Seviye {profile.level}</Text>
+                    <Text style={styles.userStatText}>Seviye {profile.level || 0}</Text>
                 </View>
             </View>
             
@@ -142,21 +151,21 @@ export default function ProfileScreen() {
 
                   <View style={styles.statsGrid}>
                       <View style={styles.statItem}>
-                          <Text style={styles.statValue}>{profile.stats.matches}</Text>
+                          <Text style={styles.statValue}>{profile.stats?.matches ?? 0}</Text>
                           <View style={styles.statLabelContainer}>
                               <MaterialIcons name="sports-soccer" size={20} color={COLORS.primary} />
                               <Text style={styles.statLabel}>MAÇ</Text>
                           </View>
                       </View>
                       <View style={styles.statItem}>
-                          <Text style={[styles.statValue, { color: COLORS.primary }]}>{profile.stats.goals}</Text>
+                          <Text style={[styles.statValue, { color: COLORS.primary }]}>{profile.stats?.goals ?? 0}</Text>
                            <View style={styles.statLabelContainer}>
                               <MaterialIcons name="sports-score" size={20} color={COLORS.gray} />
                               <Text style={styles.statLabel}>GOL</Text>
                           </View>
                       </View>
                        <View style={styles.statItem}>
-                          <Text style={styles.statValue}>{profile.stats.assists}</Text>
+                          <Text style={styles.statValue}>{profile.stats?.assists ?? 0}</Text>
                            <View style={styles.statLabelContainer}>
                               <MaterialIcons name="handshake" size={20} color={COLORS.primary} />
                               <Text style={styles.statLabel}>ASİST</Text>
@@ -164,7 +173,7 @@ export default function ProfileScreen() {
                       </View>
                        <View style={styles.statItem}>
                           <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
-                               <Text style={styles.statValue}>{profile.stats.fairplay}</Text>
+                               <Text style={styles.statValue}>{profile.stats?.fairplay ?? 0}</Text>
                                <MaterialIcons name="star" size={24} color="#facc15" />
                           </View>
                            <View style={styles.statLabelContainer}>
@@ -188,7 +197,7 @@ export default function ProfileScreen() {
              </View>
 
              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.activitiesScroll}>
-                 {profile.history.map((item: any) => (
+                 {(profile.history || []).map((item: any) => (
                     <ActivityCard 
                         key={item.id}
                         isDark={isDark}

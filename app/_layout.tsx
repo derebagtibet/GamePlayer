@@ -8,7 +8,7 @@ import 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { API_URL } from '@/constants/Config';
+import { apiPut } from '@/constants/api';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -25,7 +25,7 @@ Notifications.setNotificationHandler({
 });
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  initialRouteName: '(tabs)',
 };
 
 function useProtectedRoute(isFontLoaded: boolean) {
@@ -85,26 +85,19 @@ export default function RootLayout() {
            // router.push(data.url); // Navigation hazır olduğunda
         }
       });
-
-      return () => {
-        notificationListener.current && notificationListener.current.remove();
-        responseListener.current && responseListener.current.remove();
-      };
     }
+
+    return () => {
+      if (notificationListener.current) notificationListener.current.remove();
+      if (responseListener.current) responseListener.current.remove();
+    };
   }, [loaded, isAuthChecking]);
 
   const savePushToken = async (token: string) => {
-      try {
-          const userId = await AsyncStorage.getItem('user_id');
-          if (userId) {
-              await fetch(`${API_URL}/backend/users_api.php`, {
-                  method: 'PUT',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ id: userId, push_token: token })
-              });
-          }
-      } catch (e) {
-          console.error('Token save error:', e);
+      const userId = await AsyncStorage.getItem('user_id');
+      if (userId) {
+          const { ok, error } = await apiPut('/backend/users_api.php', { id: userId, push_token: token });
+          if (!ok) console.error('Token save error:', error);
       }
   };
 

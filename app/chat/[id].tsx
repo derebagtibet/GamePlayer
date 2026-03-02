@@ -16,13 +16,13 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
 const COLORS = {
-  primary: '#d0ebbc',
+  primary: '#17da62',
   backgroundLight: '#f7f8f6',
   backgroundDark: '#181f13',
   surfaceDark: '#1a2e22',
@@ -54,106 +54,91 @@ export default function ChatDetailScreen() {
     const initChat = async () => {
         if (!isMounted) return;
         setLoading(true);
-        try {
-            await fetchChatInfo();
-            await fetchMessages();
-            await markRead();
-        } catch (e) {
-            console.error(e);
-        } finally {
-            if (isMounted) setLoading(false);
-        }
+        await fetchChatInfo();
+        await fetchMessages();
+        await markRead();
+        if (isMounted) setLoading(false);
     };
 
     initChat();
 
+    // Mesaj polling: 5 saniyede bir yeni mesaj kontrol et
+    const pollInterval = setInterval(() => {
+      if (isMounted) fetchMessages();
+    }, 5000);
+
     return () => {
         isMounted = false;
+        clearInterval(pollInterval);
     };
   }, [id]);
 
   const fetchChatInfo = async () => {
-      try {
-          const userId = await AsyncStorage.getItem('user_id');
-          const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=group_info&conversation_id=${id}&user_id=${userId}`);
-          const data = await response.json();
-          
-          if (data.group) {
-              setGroupType(data.group.type);
-              if (data.group.type === 'direct') {
-                  // Diğer kullanıcıyı bul
-                  const otherUser = data.participants.find((p: any) => p.id.toString() !== userId);
-                  if (otherUser) {
-                      setChatName(otherUser.full_name);
-                      setChatAvatar(otherUser.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(otherUser.full_name)}&background=random`);
-                  }
-              } else {
-                  setChatName(data.group.name);
-                  setChatAvatar(data.group.image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(data.group.name)}&background=random`);
-              }
+      const userId = await AsyncStorage.getItem('user_id');
+      if (!userId) return;
+      const { ok, data } = await apiGet(`/backend/messages_api.php?endpoint=group_info&conversation_id=${id}&user_id=${userId}`);
+      if (!ok || !data?.group) return;
+
+      setGroupType(data.group.type);
+      if (data.group.type === 'direct') {
+          const participants = Array.isArray(data.participants) ? data.participants : [];
+          const otherUser = participants.find((p: any) => p.id?.toString() !== userId);
+          if (otherUser) {
+              setChatName(otherUser.full_name || 'Kullanıcı');
+              setChatAvatar(otherUser.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(otherUser.full_name || 'U')}&background=random`);
           }
-      } catch (e) { console.error('Grup bilgisi alınamadı:', e); }
+      } else {
+          setChatName(data.group.name || 'Grup');
+          setChatAvatar(data.group.image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(data.group.name || 'G')}&background=random`);
+      }
   };
 
   const markRead = async () => {
-      try {
-          const userId = await AsyncStorage.getItem('user_id');
-          if (userId) {
-              await fetch(`${API_URL}/backend/messages_api.php?endpoint=mark_read`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ conversation_id: id, user_id: userId })
-              });
-          }
-      } catch (e) { console.error('Okundu işaretleme hatası:', e); }
+      const userId = await AsyncStorage.getItem('user_id');
+      if (userId) {
+          await apiPost('/backend/messages_api.php?endpoint=mark_read', { conversation_id: id, user_id: userId });
+      }
   };
 
   const fetchMessages = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=detail&conversation_id=${id}&user_id=${userId}`);
-      const data = await response.json();
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const { ok, data } = await apiGet(`/backend/messages_api.php?endpoint=detail&conversation_id=${id}&user_id=${userId}`);
+    if (ok) {
       setMessages(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
     }
   };
 
   const handleSend = async () => {
     if (!message.trim()) return;
-    
-    try {
-        const userId = await AsyncStorage.getItem('user_id');
-        if (!userId) return;
 
-        // Geçici olarak mesajı ekrana ekle (optimistic update)
-        const newMessage = {
-            id: Date.now(),
-            content: message,
-            created_at: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            sender_id: parseInt(userId),
-            is_me: 1,
-            sender_name: 'Ben', // Backend'den çekilebilir
-        };
-        setMessages([...messages, newMessage]);
-        setMessage('');
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
 
-        const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=send_message`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                conversation_id: id,
-                sender_id: userId,
-                content: newMessage.content
-            }),
-        });
-        
-        const data = await response.json();
-        if (data.status !== 'success') {
-            console.error('Mesaj gönderilemedi:', data.message);
-        }
-    } catch (error) {
-        console.error('Mesaj gönderme hatası:', error);
+    const messageContent = message;
+    // Optimistic update
+    const tempId = Date.now();
+    const newMessage = {
+        id: tempId,
+        content: messageContent,
+        created_at: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        sender_id: parseInt(userId),
+        is_me: 1,
+        sender_name: 'Ben',
+    };
+    setMessages(prev => [...prev, newMessage]);
+    setMessage('');
+
+    const { ok } = await apiPost('/backend/messages_api.php?endpoint=send_message', {
+        conversation_id: id,
+        sender_id: userId,
+        content: messageContent,
+    });
+
+    if (!ok) {
+        // Rollback: Geçici mesajı kaldır ve input'a geri koy
+        setMessages(prev => prev.filter(m => m.id !== tempId));
+        setMessage(messageContent);
     }
   };
 

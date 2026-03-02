@@ -13,7 +13,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -46,16 +46,16 @@ export default function MatchesScreen() {
   );
 
   const fetchMatches = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=matches&user_id=${userId}`);
-      const data = await response.json();
-      setMatchesData(data);
-    } catch (error) {
-      console.error('Maç verisi çekilemedi:', error);
-    } finally {
-      setLoading(false);
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) { setLoading(false); return; }
+    const { ok, data } = await apiGet(`/backend/events_api.php?endpoint=matches&user_id=${userId}`);
+    if (ok && data) {
+      setMatchesData({
+        upcoming: Array.isArray(data.upcoming) ? data.upcoming : [],
+        past: Array.isArray(data.past) ? data.past : [],
+      });
     }
+    setLoading(false);
   };
 
   const matches = activeTab === 'upcoming' ? matchesData.upcoming : matchesData.past;

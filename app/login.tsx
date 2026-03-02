@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -52,26 +52,15 @@ export default function LoginScreen() {
     }
 
     setLoading(true);
-    try {
-      const response = await fetch(`${API_URL}/backend/login_api.php?endpoint=login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
+    const { ok, data, error } = await apiPost('/backend/login_api.php?endpoint=login', { email, password });
+    setLoading(false);
 
-      if (data.status === 'success') {
-        // Kullanıcı ID'sini kaydet
-        await AsyncStorage.setItem('user_id', data.user.id.toString());
-        await AsyncStorage.setItem('user_name', data.user.full_name || '');
-        router.replace('/(tabs)');
-      } else {
-        Alert.alert('Hata', data.message);
-      }
-    } catch (error) {
-      Alert.alert('Hata', 'Sunucuya bağlanılamadı.');
-    } finally {
-      setLoading(false);
+    if (ok && data?.user) {
+      await AsyncStorage.setItem('user_id', data.user.id.toString());
+      await AsyncStorage.setItem('user_name', data.user.full_name || '');
+      router.replace('/(tabs)');
+    } else {
+      Alert.alert('Hata', error || data?.message || 'Giriş başarısız.');
     }
   };
 
@@ -82,28 +71,17 @@ export default function LoginScreen() {
     }
 
     setLoading(true);
-    try {
-      const response = await fetch(`${API_URL}/backend/login_api.php?endpoint=register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, full_name: fullName }),
-      });
-      const data = await response.json();
+    const { ok, data, error } = await apiPost('/backend/login_api.php?endpoint=register', { email, password, full_name: fullName });
+    setLoading(false);
 
-      if (data.status === 'success') {
-        // Kayıt sonrası otomatik login yapmak için ID'yi kaydet
-        await AsyncStorage.setItem('user_id', data.user_id.toString());
-        await AsyncStorage.setItem('user_name', fullName);
-        Alert.alert('Başarılı', 'Kayıt olundu!', [
-            { text: 'Devam Et', onPress: () => router.replace('/(tabs)') }
-        ]);
-      } else {
-        Alert.alert('Hata', data.message);
-      }
-    } catch (error) {
-      Alert.alert('Hata', 'Sunucuya bağlanılamadı.');
-    } finally {
-      setLoading(false);
+    if (ok && data?.user_id) {
+      await AsyncStorage.setItem('user_id', data.user_id.toString());
+      await AsyncStorage.setItem('user_name', fullName);
+      Alert.alert('Başarılı', 'Kayıt olundu!', [
+          { text: 'Devam Et', onPress: () => router.replace('/(tabs)') }
+      ]);
+    } else {
+      Alert.alert('Hata', error || data?.message || 'Kayıt başarısız.');
     }
   };
 
@@ -522,7 +500,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     backgroundColor: isDark ? '#374151' : COLORS.grayLight,
   },
   separatorText: {
-    backgroundColor: isDark ? COLORS.backgroundDark : COLORS.backgroundLight, // Should match bg
+    backgroundColor: isDark ? COLORS.glassDark : COLORS.glassLight,
     paddingHorizontal: 16,
     fontSize: 14,
     fontWeight: '500',

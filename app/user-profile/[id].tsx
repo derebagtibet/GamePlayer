@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet } from '@/constants/api';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const COLORS = {
@@ -34,15 +34,9 @@ export default function UserProfileScreen() {
   }, [id]);
 
   const fetchProfile = async () => {
-    try {
-      const response = await fetch(`${API_URL}/backend/profile_api.php?user_id=${id}`);
-      const data = await response.json();
-      setProfile(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    const { ok, data } = await apiGet(`/backend/profile_api.php?user_id=${id}`);
+    if (ok && data) setProfile(data);
+    setLoading(false);
   };
 
   if (loading) return <ActivityIndicator style={{marginTop: 50}} size="large" color={COLORS.primary} />;
@@ -72,27 +66,29 @@ export default function UserProfileScreen() {
             />
             
             <View style={styles.heroContent}>
-                <Image 
-                    source={{ uri: (profile.avatar && profile.avatar.length > 0) ? profile.avatar : `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}` }} 
-                    style={styles.avatar} 
+                <Image
+                    source={{ uri: (profile.avatar && profile.avatar.length > 0) ? profile.avatar : `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name || 'U')}` }}
+                    style={styles.avatar}
                 />
-                <Text style={styles.userName}>{profile.name}</Text>
-                <Text style={styles.userStats}>{profile.position} • Seviye {profile.level}</Text>
+                <View style={{flex: 1}}>
+                    <Text style={styles.userName}>{profile.name || 'Kullanıcı'}</Text>
+                    <Text style={styles.userStats}>{profile.position || ''} • Seviye {profile.level || 0}</Text>
+                </View>
             </View>
         </View>
 
         {/* Stats */}
         <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-                <Text style={styles.statValue}>{profile.stats.matches}</Text>
+                <Text style={styles.statValue}>{profile.stats?.matches ?? 0}</Text>
                 <Text style={styles.statLabel}>MAÇ</Text>
             </View>
             <View style={styles.statItem}>
-                <Text style={styles.statValue}>{profile.stats.goals}</Text>
+                <Text style={styles.statValue}>{profile.stats?.goals ?? 0}</Text>
                 <Text style={styles.statLabel}>GOL</Text>
             </View>
             <View style={styles.statItem}>
-                <Text style={styles.statValue}>{profile.stats.assists}</Text>
+                <Text style={styles.statValue}>{profile.stats?.assists ?? 0}</Text>
                 <Text style={styles.statLabel}>ASİST</Text>
             </View>
         </View>
@@ -100,7 +96,7 @@ export default function UserProfileScreen() {
         {/* Bio */}
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>Hakkında</Text>
-            <Text style={styles.bioText}>{profile.stats.bio || 'Henüz biyografi eklenmemiş.'}</Text>
+            <Text style={styles.bioText}>{profile.stats?.bio || 'Henüz biyografi eklenmemiş.'}</Text>
         </View>
 
       </ScrollView>
@@ -114,10 +110,10 @@ const styles = StyleSheet.create({
   iconButton: { padding: 8, backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: 20 },
   heroSection: { height: 300, position: 'relative' },
   heroImage: { width: '100%', height: '100%' },
-  heroContent: { position: 'absolute', bottom: 20, left: 20, alignItems: 'center', flexDirection: 'row', gap: 16 },
+  heroContent: { position: 'absolute', bottom: 20, left: 20, right: 20, flexDirection: 'row', alignItems: 'flex-end', gap: 16 },
   avatar: { width: 80, height: 80, borderRadius: 40, borderWidth: 3, borderColor: 'white' },
-  userName: { fontSize: 24, fontWeight: 'bold', color: 'black' }, // Background light olduğu için black
-  userStats: { fontSize: 14, color: COLORS.gray, marginTop: 4 }, // Düzenleme gerekebilir
+  userName: { fontSize: 24, fontWeight: 'bold', color: 'white' },
+  userStats: { fontSize: 14, color: 'rgba(255,255,255,0.8)', marginTop: 4 },
   statsContainer: { flexDirection: 'row', justifyContent: 'space-around', padding: 20, backgroundColor: 'white', margin: 16, borderRadius: 16, elevation: 2 },
   statItem: { alignItems: 'center' },
   statValue: { fontSize: 20, fontWeight: 'bold' },

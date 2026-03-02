@@ -13,20 +13,20 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
   primary: '#17da62',
-  primaryDark: '#7a9b13',
+  primaryDark: '#0eb545',
   backgroundLight: '#f6f8f7',
   backgroundDark: '#112117',
   surfaceLight: '#ffffff',
-  surfaceDark: '#2a301c',
-  textMainLight: '#161811',
-  textMainDark: '#e8ebe2',
-  textSubLight: '#7f8863',
-  textSubDark: '#aeb59a',
+  surfaceDark: '#1a2e22',
+  textMainLight: '#111813',
+  textMainDark: '#ffffff',
+  textSubLight: '#6b7280',
+  textSubDark: '#9ca3af',
   gray: '#9ca3af',
 };
 
@@ -45,34 +45,20 @@ export default function NotificationsScreen() {
 
   const fetchNotifications = async () => {
     setLoading(true);
-    try {
-        const userId = await AsyncStorage.getItem('user_id');
-        const response = await fetch(`${API_URL}/backend/notifications_api.php?filter=${filter}&user_id=${userId}`);
-        const data = await response.json();
-        setNotifications(Array.isArray(data) ? data : []);
-    } catch (error) {
-        console.error(error);
-    } finally {
-        setLoading(false);
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) { setLoading(false); return; }
+    const { ok, data } = await apiGet(`/backend/notifications_api.php?filter=${filter}&user_id=${userId}`);
+    if (ok) {
+      setNotifications(Array.isArray(data) ? data : []);
     }
+    setLoading(false);
   };
 
   const handleAccept = async (id: number) => {
-      try {
-          const userId = await AsyncStorage.getItem('user_id');
-          const response = await fetch(`${API_URL}/backend/notifications_api.php?endpoint=accept&user_id=${userId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ notification_id: id })
-          });
-          const data = await response.json();
-          if (data.status === 'success') {
-              // Listeyi güncelle
-              fetchNotifications();
-          }
-      } catch (e) {
-          console.error(e);
-      }
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const { ok } = await apiPost(`/backend/notifications_api.php?endpoint=accept&user_id=${userId}`, { notification_id: id });
+    if (ok) fetchNotifications();
   };
 
   return (

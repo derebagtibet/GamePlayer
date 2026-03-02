@@ -17,7 +17,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { API_URL } from '@/constants/Config';
+import { apiPost } from '@/constants/api';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -87,43 +87,28 @@ export default function CreateEventScreen() {
     }
 
     setLoading(true);
+    const userId = await AsyncStorage.getItem('user_id');
+    const pad = (n: number) => (n < 10 ? '0' + n : n);
+    const formattedDate = `${dateObj.getFullYear()}-${pad(dateObj.getMonth() + 1)}-${pad(dateObj.getDate())} ${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}:00`;
 
-    try {
-        const userId = await AsyncStorage.getItem('user_id');
-        // Backend formatı: YYYY-MM-DD HH:MM:SS
-        const pad = (n: number) => (n < 10 ? '0' + n : n);
-        const formattedDate = `${dateObj.getFullYear()}-${pad(dateObj.getMonth() + 1)}-${pad(dateObj.getDate())} ${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}:00`;
+    const { ok, error } = await apiPost('/backend/events_api.php', {
+        user_id: userId,
+        title,
+        category,
+        date: formattedDate,
+        location,
+        description,
+        price: paymentRequired ? price : 0,
+        type: matchType,
+    });
+    setLoading(false);
 
-        const response = await fetch(`${API_URL}/backend/events_api.php`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user_id: userId, // Organizatör ID
-                title,
-                category,
-                date: formattedDate,
-                location,
-                description,
-                price: paymentRequired ? price : 0,
-                type: matchType
-            }),
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-            Alert.alert('Başarılı', 'Etkinlik başarıyla oluşturuldu!', [
-                { text: 'Tamam', onPress: () => router.back() }
-            ]);
-        } else {
-            Alert.alert('Hata', result.message || 'Bir sorun oluştu.');
-        }
-    } catch (error) {
-        Alert.alert('Hata', 'Bağlantı hatası oluştu.');
-    } finally {
-        setLoading(false);
+    if (ok) {
+        Alert.alert('Başarılı', 'Etkinlik başarıyla oluşturuldu!', [
+            { text: 'Tamam', onPress: () => router.back() }
+        ]);
+    } else {
+        Alert.alert('Hata', error || 'Bir sorun oluştu.');
     }
   };
 

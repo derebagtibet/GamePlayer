@@ -14,11 +14,11 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
-  primary: '#d0ebbc',
+  primary: '#17da62',
   backgroundLight: '#f7f8f6',
   backgroundDark: '#181f13',
   surfaceDark: '#1a2e22',
@@ -44,16 +44,13 @@ export default function MessagesScreen() {
   );
 
   const fetchConversations = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=list&user_id=${userId}`);
-      const data = await response.json();
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) { setLoading(false); return; }
+    const { ok, data } = await apiGet(`/backend/messages_api.php?endpoint=list&user_id=${userId}`);
+    if (ok) {
       setConversations(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   const handleChatPress = (id: string) => {

@@ -1,6 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as Location from 'expo-location';
 import {
   Dimensions,
@@ -16,7 +15,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { API_URL } from '@/constants/Config';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { apiGet } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
@@ -25,7 +25,7 @@ const COLORS = {
   primary: '#17da62',
   backgroundLight: '#f6f8f7',
   backgroundDark: '#112117',
-  surfaceLight: '#483f3f',
+  surfaceLight: '#ffffff',
   surfaceDark: '#1A2C20',
   textLight: '#111418',
   textDark: '#ffffff',
@@ -45,31 +45,34 @@ export default function DashboardScreen() {
   const [userName, setUserName] = useState('Oyuncu');
   const [loading, setLoading] = useState(true);
 
+  // İlk yüklemede hava durumu çek (her focus'ta tekrar çekmeye gerek yok)
   useEffect(() => {
-    loadUserData();
-    fetchDashboardData();
     fetchWeather();
   }, []);
 
-  const loadUserData = async () => {
-    const name = await AsyncStorage.getItem('user_name');
-    if (name) setUserName(name);
-  };
+  // Ekran her odaklandığında dashboard verisini yenile
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
 
-  const fetchDashboardData = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      if (!userId) return;
-      
-      const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=dashboard&user_id=${userId}`);
-      const data = await response.json();
-      setDashboardData(data);
-    } catch (error) {
-      console.error('Dashboard verisi çekilemedi:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+      const loadAll = async () => {
+        const name = await AsyncStorage.getItem('user_name');
+        if (name && !cancelled) setUserName(name);
+
+        const userId = await AsyncStorage.getItem('user_id');
+        if (!userId || cancelled) { setLoading(false); return; }
+
+        const { ok, data } = await apiGet(`/backend/events_api.php?endpoint=dashboard&user_id=${userId}`);
+        if (!cancelled) {
+          if (ok && data) setDashboardData(data);
+          setLoading(false);
+        }
+      };
+
+      loadAll();
+      return () => { cancelled = true; };
+    }, [])
+  );
 
   const fetchWeather = async () => {
     try {

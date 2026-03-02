@@ -13,7 +13,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -40,65 +40,52 @@ export default function GroupEditScreen() {
   }, [id]);
 
   const fetchGroupInfo = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=group_info&conversation_id=${id}&user_id=${userId}`);
-      const data = await response.json();
-      if (data.group) {
-        setGroupName(data.group.name);
-        setParticipants(data.participants);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) { setLoading(false); return; }
+    const { ok, data } = await apiGet(`/backend/messages_api.php?endpoint=group_info&conversation_id=${id}&user_id=${userId}`);
+    if (ok && data?.group) {
+      setGroupName(data.group.name || '');
+      setParticipants(Array.isArray(data.participants) ? data.participants : []);
     }
+    setLoading(false);
   };
 
   const handleUpdateName = async () => {
-    try {
-        await fetch(`${API_URL}/backend/messages_api.php?endpoint=update_group`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ conversation_id: id, name: groupName })
-        });
-        Alert.alert('Başarılı', 'Grup ismi güncellendi');
-    } catch (e) {
-        Alert.alert('Hata', 'Güncelleme başarısız');
+    const { ok, error } = await apiPost('/backend/messages_api.php?endpoint=update_group', {
+      conversation_id: id,
+      name: groupName,
+    });
+    if (ok) {
+      Alert.alert('Başarılı', 'Grup ismi güncellendi');
+    } else {
+      Alert.alert('Hata', error || 'Güncelleme başarısız');
     }
   };
 
   const handleAddMember = async () => {
       if (!newMemberUsername) return;
-      try {
-          const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=add_member`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ conversation_id: id, username: newMemberUsername })
-        });
-        const data = await response.json();
-        if (data.status === 'success') {
-            setNewMemberUsername('');
-            fetchGroupInfo();
-            Alert.alert('Başarılı', 'Üye eklendi');
-        } else {
-            Alert.alert('Hata', data.message || 'Kullanıcı bulunamadı');
-        }
-      } catch (e) {
-          Alert.alert('Hata', 'İşlem başarısız');
+      const { ok, error } = await apiPost('/backend/messages_api.php?endpoint=add_member', {
+        conversation_id: id,
+        username: newMemberUsername,
+      });
+      if (ok) {
+        setNewMemberUsername('');
+        fetchGroupInfo();
+        Alert.alert('Başarılı', 'Üye eklendi');
+      } else {
+        Alert.alert('Hata', error || 'Kullanıcı bulunamadı');
       }
   };
 
-  const handleRemoveMember = async (userId: number) => {
-      try {
-          await fetch(`${API_URL}/backend/messages_api.php?endpoint=remove_member`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ conversation_id: id, user_id: userId })
-        });
+  const handleRemoveMember = async (memberId: number) => {
+      const { ok, error } = await apiPost('/backend/messages_api.php?endpoint=remove_member', {
+        conversation_id: id,
+        user_id: memberId,
+      });
+      if (ok) {
         fetchGroupInfo();
-      } catch (e) {
-          Alert.alert('Hata', 'Silme başarısız');
+      } else {
+        Alert.alert('Hata', error || 'Silme başarısız');
       }
   };
 

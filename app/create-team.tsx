@@ -17,7 +17,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -55,33 +55,23 @@ export default function CreateTeamScreen() {
     }
 
     setLoading(true);
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/teams_api.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          description,
-          category, // DB'de henüz yoksa eklenmeli veya description'a gömülmeli
-          captain_id: userId,
-          privacy,
-          approval
-        }),
-      });
-      const data = await response.json();
+    const userId = await AsyncStorage.getItem('user_id');
+    const { ok, error } = await apiPost('/backend/teams_api.php', {
+      name,
+      description,
+      category,
+      captain_id: userId,
+      privacy,
+      approval,
+    });
+    setLoading(false);
 
-      if (data.status === 'success') {
-        Alert.alert('Başarılı', 'Takım başarıyla oluşturuldu!', [
-          { text: 'Tamam', onPress: () => router.back() }
-        ]);
-      } else {
-        Alert.alert('Hata', data.message);
-      }
-    } catch (error) {
-      Alert.alert('Hata', 'Bağlantı hatası oluştu.');
-    } finally {
-      setLoading(false);
+    if (ok) {
+      Alert.alert('Başarılı', 'Takım başarıyla oluşturuldu!', [
+        { text: 'Tamam', onPress: () => router.back() }
+      ]);
+    } else {
+      Alert.alert('Hata', error || 'Bağlantı hatası oluştu.');
     }
   };
 

@@ -16,7 +16,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -62,57 +62,48 @@ export default function EventDetailsScreen() {
   }, [params.id]);
 
   const fetchDetails = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/event_details_api.php?event_id=${params.id || 1}`);
-      const data = await response.json();
-      if (data.status === 'success') {
-        setEventData(data.event);
-        setParticipants(data.participants || []);
-        // Kullanıcı katılmış mı kontrol et
-        const joined = (data.participants || []).some((p: any) => p.id.toString() === userId);
-        setIsJoined(joined);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    const userId = await AsyncStorage.getItem('user_id');
+    const { ok, data } = await apiGet(`/backend/event_details_api.php?event_id=${params.id || 1}&user_id=${userId}`);
+    if (ok && data?.event) {
+      setEventData(data.event);
+      const parts = Array.isArray(data.participants) ? data.participants : [];
+      setParticipants(parts);
+      const joined = parts.some((p: any) => p.id?.toString() === userId);
+      setIsJoined(joined);
     }
+    setLoading(false);
   };
 
   const handleSaveResult = async () => {
       if (!currentUserId) return;
-      try {
-          const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=save_result&user_id=${currentUserId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ event_id: params.id || 1, score, details: matchDetails })
-          });
-          const data = await response.json();
-          if (data.status === 'success') {
-              Alert.alert('Başarılı', 'Maç sonucu kaydedildi.');
-              setResultModalVisible(false);
-              fetchDetails();
-          } else { Alert.alert('Hata', data.message); }
-      } catch (e) { Alert.alert('Hata', 'İşlem başarısız'); }
+      const { ok, error } = await apiPost(
+        `/backend/events_api.php?endpoint=save_result&user_id=${currentUserId}`,
+        { event_id: params.id || 1, score, details: matchDetails }
+      );
+      if (ok) {
+          Alert.alert('Başarılı', 'Maç sonucu kaydedildi.');
+          setResultModalVisible(false);
+          fetchDetails();
+      } else {
+          Alert.alert('Hata', error || 'İşlem başarısız');
+      }
   };
 
   const handleSendInvite = async () => {
       if (!inviteUsername) return;
-      try {
-          const userId = await AsyncStorage.getItem('user_id');
-          const response = await fetch(`${API_URL}/backend/notifications_api.php?endpoint=send_invite&user_id=${userId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ username: inviteUsername, event_id: params.id, message: `Seni maça davet etti.` })
-          });
-          const data = await response.json();
-          if (data.status === 'success') {
-              Alert.alert('Başarılı', 'Davet gönderildi');
-              setInviteModalVisible(false);
-              setInviteUsername('');
-          } else { Alert.alert('Hata', data.message); }
-      } catch (e) { Alert.alert('Hata', 'İşlem başarısız'); }
+      const userId = await AsyncStorage.getItem('user_id');
+      if (!userId) return;
+      const { ok, error } = await apiPost(
+        `/backend/notifications_api.php?endpoint=send_invite&user_id=${userId}`,
+        { username: inviteUsername, event_id: params.id, message: 'Seni maça davet etti.' }
+      );
+      if (ok) {
+          Alert.alert('Başarılı', 'Davet gönderildi');
+          setInviteModalVisible(false);
+          setInviteUsername('');
+      } else {
+          Alert.alert('Hata', error || 'İşlem başarısız');
+      }
   };
 
   const handleLeave = async () => {
@@ -122,41 +113,33 @@ export default function EventDetailsScreen() {
     Alert.alert('Ayrıl', 'Maçtan ayrılmak istediğine emin misin?', [
         { text: 'İptal', style: 'cancel' },
         { text: 'Ayrıl', style: 'destructive', onPress: async () => {
-            try {
-                const eventId = parseInt(Array.isArray(params.id) ? params.id[0] : params.id || '0');
-                const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=leave&user_id=${userId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ event_id: eventId }),
-                });
-                const data = await response.json();
-                if (data.status === 'success') {
-                    Alert.alert('Başarılı', 'Maçtan ayrıldın.');
-                    setIsJoined(false);
-                    fetchDetails();
-                } else {
-                    Alert.alert('Hata', data.message || 'İşlem başarısız.');
-                }
-            } catch (error) { Alert.alert('Hata', 'Bağlantı hatası.'); }
+            const eventId = parseInt(Array.isArray(params.id) ? params.id[0] : params.id || '0');
+            const { ok, error } = await apiPost(
+              `/backend/events_api.php?endpoint=leave&user_id=${userId}`,
+              { event_id: eventId }
+            );
+            if (ok) {
+                Alert.alert('Başarılı', 'Maçtan ayrıldın.');
+                setIsJoined(false);
+                fetchDetails();
+            } else {
+                Alert.alert('Hata', error || 'İşlem başarısız.');
+            }
         }}
     ]);
   };
 
   const handleChat = async (otherUserId: number) => {
       const userId = await AsyncStorage.getItem('user_id');
-      if (!userId || userId == otherUserId.toString()) return;
+      if (!userId || userId === otherUserId.toString()) return;
 
-      try {
-          const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=create_conversation&user_id=${userId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ participants: [userId, otherUserId] })
-          });
-          const data = await response.json();
-          if (data.status === 'success') {
-              router.push(`/chat/${data.conversation_id}`);
-          }
-      } catch (error) { console.error(error); }
+      const { ok, data } = await apiPost(
+        `/backend/messages_api.php?endpoint=create_conversation&user_id=${userId}`,
+        { participants: [userId, otherUserId] }
+      );
+      if (ok && data?.conversation_id) {
+          router.push(`/chat/${data.conversation_id}`);
+      }
   };
 
   const confirmJoin = async () => {
@@ -164,22 +147,15 @@ export default function EventDetailsScreen() {
     if (!userId) return;
 
     setModalVisible(false);
-    try {
-      const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=join&user_id=${userId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-            event_id: params.id || 1,
-            position: selectedPosition 
-        }),
-      });
-      const data = await response.json();
-      if (data.status === 'success') {
-        Alert.alert('Başarılı', 'Maça katıldınız!');
-        fetchDetails(); 
-      }
-    } catch (error) {
-      Alert.alert('Hata', 'Bağlantı hatası.');
+    const { ok, error } = await apiPost(
+      `/backend/events_api.php?endpoint=join&user_id=${userId}`,
+      { event_id: params.id || 1, position: selectedPosition }
+    );
+    if (ok) {
+      Alert.alert('Başarılı', 'Maça katıldınız!');
+      fetchDetails();
+    } else {
+      Alert.alert('Hata', error || 'Bağlantı hatası.');
     }
   };
 

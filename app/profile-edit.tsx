@@ -17,6 +17,7 @@ import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import Slider from '@react-native-community/slider';
+import { apiGet, apiPost, apiFetch } from '@/constants/api';
 import { API_URL } from '@/constants/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -58,18 +59,16 @@ export default function ProfileEditScreen() {
   }, []);
 
   const fetchProfile = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/profile_api.php?user_id=${userId}`);
-      const data = await response.json();
-      if (data.id) {
-        setFullName(data.name);
-        setPosition(data.position);
-        setBio(data.stats?.bio || ''); 
-        setAvatar(data.avatar);
-        setCover(data.cover);
-      }
-    } catch (e) { console.error(e); }
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const { ok, data } = await apiGet(`/backend/profile_api.php?user_id=${userId}`);
+    if (ok && data?.id) {
+      setFullName(data.name || '');
+      setPosition(data.position || '');
+      setBio(data.stats?.bio || '');
+      setAvatar(data.avatar || '');
+      setCover(data.cover || '');
+    }
   };
 
   const uploadImage = async (uri: string) => {
@@ -139,20 +138,18 @@ export default function ProfileEditScreen() {
   };
 
   const handleSave = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch(`${API_URL}/backend/profile_api.php?user_id=${userId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ full_name: fullName, position, bio, avatar_url: avatar, cover_url: cover })
-      });
-      const data = await response.json();
-      if (data.status === 'success') {
-        Alert.alert('Başarılı', 'Profil güncellendi', [{ text: 'Tamam', onPress: () => router.back() }]);
-      } else {
-        Alert.alert('Hata', data.message || 'Güncelleme başarısız');
-      }
-    } catch (e) { Alert.alert('Hata', 'Bağlantı hatası'); }
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const { ok, error } = await apiPost(`/backend/profile_api.php?user_id=${userId}`, {
+      full_name: fullName, position, bio, avatar_url: avatar, cover_url: cover,
+    });
+    if (ok) {
+      // AsyncStorage'daki ismi de güncelle (dashboard'da göstermek için)
+      await AsyncStorage.setItem('user_name', fullName);
+      Alert.alert('Başarılı', 'Profil güncellendi', [{ text: 'Tamam', onPress: () => router.back() }]);
+    } else {
+      Alert.alert('Hata', error || 'Güncelleme başarısız');
+    }
   };
 
   return (

@@ -13,7 +13,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -30,57 +30,6 @@ const COLORS = {
   grayDark: 'rgba(255,255,255,0.1)',
 };
 
-const EVENTS = [
-  {
-    id: 1,
-    type: 'soccer',
-    category: 'Futbol',
-    title: 'Halı Saha Maçı',
-    subtitle: 'Orta Seviye • Rekabetçi',
-    time: 'Bu Akşam, 20:00 - 21:00',
-    location: 'Göztepe Parkı, Kadıköy',
-    participants: '13/14',
-    progress: '92%',
-    price: '₺65',
-    badge: 'Son 1 Kişi!',
-    badgeType: 'danger',
-    icon: 'sports-soccer',
-    iconColor: '#15803d',
-    iconBg: '#f0fdf4',
-    iconBgDark: 'rgba(21, 128, 61, 0.2)',
-    iconColorDark: '#4ade80',
-  },
-  {
-    id: 2,
-    type: 'basketball',
-    category: 'Basketbol',
-    title: '3\'e 3 Basketbol',
-    subtitle: 'Başlangıç • Eğlence',
-    time: 'Yarın, 18:00',
-    location: 'Caddebostan Sahil',
-    participants: '4/6',
-    progress: '66%',
-    price: 'Free',
-    priceLabel: 'Ücretsiz',
-    icon: 'sports-basketball',
-    iconColor: '#c2410c',
-    iconBg: '#fff7ed',
-    iconBgDark: 'rgba(194, 65, 12, 0.2)',
-    iconColorDark: '#fb923c',
-  },
-  {
-    id: 3,
-    type: 'tennis',
-    category: 'Tenis',
-    title: 'Partner Aranıyor',
-    time: '24 Ekim, 09:00',
-    location: 'Dalyan Club',
-    participants: '+1',
-    image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-    isImageCard: true,
-  },
-];
-
 export default function ExploreScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -91,59 +40,52 @@ export default function ExploreScreen() {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Verileri Backend'den Çek
+  // Kategori değişiminde AbortController ile race condition önleme
   useEffect(() => {
-    fetchEvents(selectedCategory);
+    const abortController = new AbortController();
+    fetchEvents(selectedCategory, abortController.signal);
+    return () => abortController.abort();
   }, [selectedCategory]);
 
-  const fetchEvents = async (category: string) => {
+  const fetchEvents = async (category: string, signal?: AbortSignal) => {
     setLoading(true);
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const catParam = category === 'Tümü' ? '' : `&category=${encodeURIComponent(category)}`;
-      const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=explore${catParam}&user_id=${userId}`);
-      const data = await response.json();
-      
-      if (Array.isArray(data)) {
-        setEvents(data);
-        // Katıldığım maçların ID'lerini ayıkla
-        const joinedIds = data.filter((e: any) => e.is_joined).map((e: any) => e.id);
-        setJoinedEvents(joinedIds);
-      } else {
-        setEvents([]);
-        setJoinedEvents([]);
-      }
-    } catch (error) {
-      console.error('Veri çekme hatası:', error);
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) { setLoading(false); return; }
+
+    const catParam = category === 'Tümü' ? '' : `&category=${encodeURIComponent(category)}`;
+    const { ok, data } = await apiGet(`/backend/events_api.php?endpoint=explore${catParam}&user_id=${userId}`, signal);
+
+    // AbortError durumunda state güncelleme
+    if (signal?.aborted) return;
+
+    if (ok && Array.isArray(data)) {
+      setEvents(data);
+      const joinedIds = data.filter((e: any) => e.is_joined).map((e: any) => e.id);
+      setJoinedEvents(joinedIds);
+    } else {
       setEvents([]);
-    } finally {
-      setLoading(false);
+      setJoinedEvents([]);
     }
+    setLoading(false);
   };
 
   const handleJoin = async (id: number) => {
     const userId = await AsyncStorage.getItem('user_id');
     if (!userId) return;
 
-    try {
-      const response = await fetch(`${API_URL}/backend/events_api.php?endpoint=join&user_id=${userId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event_id: id }),
-      });
-      const data = await response.json();
+    // Zaten katıldıysa işlem yapma
+    if (joinedEvents.includes(id)) return;
 
-      if (data.status === 'success') {
-        if (joinedEvents.includes(id)) {
-          // Zaten katılmışsa ayrılma mantığı da eklenebilir ama şimdilik sadece ekle
-          // setJoinedEvents(joinedEvents.filter(eventId => eventId !== id));
-        } else {
-          setJoinedEvents([...joinedEvents, id]);
-          fetchEvents(selectedCategory); // Sayıyı güncellemek için tekrar çek
-        }
-      }
-    } catch (error) {
-      console.error('Katılma hatası:', error);
+    // Optimistic update
+    setJoinedEvents(prev => [...prev, id]);
+
+    const { ok } = await apiPost(`/backend/events_api.php?endpoint=join&user_id=${userId}`, { event_id: id });
+    if (ok) {
+      // Sayıyı güncellemek için tekrar çek
+      fetchEvents(selectedCategory);
+    } else {
+      // Rollback
+      setJoinedEvents(prev => prev.filter(eventId => eventId !== id));
     }
   };
 
@@ -369,13 +311,14 @@ export default function ExploreScreen() {
 }
 
 const FilterChip = ({ label, icon, isActive, onPress, isDark }: any) => {
+  const chipStyles = getStyles(isDark);
   return (
-    <TouchableOpacity 
-      style={isActive ? getStyles(isDark).filterChipActive : getStyles(isDark).filterChip} 
+    <TouchableOpacity
+      style={isActive ? chipStyles.filterChipActive : chipStyles.filterChip}
       onPress={onPress}
     >
       {icon && <MaterialIcons name={icon} size={18} color={isActive ? '#102216' : (isDark ? '#e5e7eb' : '#111813')} />}
-      <Text style={isActive ? getStyles(isDark).filterChipTextActive : getStyles(isDark).filterChipText}>{label}</Text>
+      <Text style={isActive ? chipStyles.filterChipTextActive : chipStyles.filterChipText}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -714,7 +657,6 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
   avatarGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: -8,
   },
   avatarSmall: {
     width: 32,
@@ -732,6 +674,7 @@ const getStyles = (isDark: boolean) => StyleSheet.create({
     borderColor: isDark ? COLORS.surfaceDark : COLORS.surfaceLight,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: -8,
   },
   avatarMoreText: {
     fontSize: 10,

@@ -13,7 +13,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { API_URL } from '@/constants/Config';
+import { apiGet, apiPost } from '@/constants/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const COLORS = {
@@ -41,20 +41,13 @@ export default function CreateGroupScreen() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    try {
-      const response = await fetch(`${API_URL}/backend/users_api.php`);
-      const data = await response.json();
-      if (data.status === 'success') {
-        // Kendimizi listeden çıkaralım
-        const currentUserId = await AsyncStorage.getItem('user_id');
-        const filtered = data.data.filter((u: any) => u.id != currentUserId);
-        setUsers(filtered);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    const currentUserId = await AsyncStorage.getItem('user_id');
+    const { ok, data } = await apiGet('/backend/users_api.php');
+    if (ok && data?.data) {
+      const filtered = data.data.filter((u: any) => String(u.id) !== currentUserId);
+      setUsers(filtered);
     }
+    setLoading(false);
   };
 
   const toggleUser = (id: number) => {
@@ -75,29 +68,24 @@ export default function CreateGroupScreen() {
       return;
     }
 
-    try {
-      const userId = await AsyncStorage.getItem('user_id');
-      const participants = [parseInt(userId!), ...selectedUsers];
+    const userId = await AsyncStorage.getItem('user_id');
+    if (!userId) return;
+    const participants = [parseInt(userId), ...selectedUsers];
 
-      const response = await fetch(`${API_URL}/backend/messages_api.php?endpoint=create_conversation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: groupName, participants })
-      });
-      const data = await response.json();
-      if (data.status === 'success') {
-        router.replace(`/chat/${data.conversation_id}`);
-      } else {
-        Alert.alert('Hata', data.message || 'Grup oluşturulamadı');
-      }
-    } catch (e) {
-      Alert.alert('Hata', 'Bağlantı hatası');
+    const { ok, data, error } = await apiPost('/backend/messages_api.php?endpoint=create_conversation', {
+      name: groupName,
+      participants,
+    });
+    if (ok && data?.conversation_id) {
+      router.replace(`/chat/${data.conversation_id}`);
+    } else {
+      Alert.alert('Hata', error || 'Grup oluşturulamadı');
     }
   };
 
-  const filteredUsers = searchQuery.length > 0 ? users.filter(u => 
-    u.username.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    u.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredUsers = searchQuery.length > 0 ? users.filter(u =>
+    (u.username || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (u.full_name || '').toLowerCase().includes(searchQuery.toLowerCase())
   ) : [];
 
   return (
